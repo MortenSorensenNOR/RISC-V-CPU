@@ -1,2 +1,3 @@
 # RISC-V-CPU
-Builind a RISC-V compliant CPU in SystemVerilog
+Building a RISC-V compliant CPU in SystemVerilog.  
+Testing done in Verilator.
