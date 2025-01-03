@@ -11,48 +11,75 @@ module alu (
     output logic ovf
 );
 
+    // alu_ctrl encoding
+    typedef enum logic [3:0] {
+        ADD,
+        SUB,
+        XOR,
+        OR,
+        AND,
+        SLL,
+        SRL,
+        SRA,
+        NOP
+    } alu_ctrl_type_t;
+
     // Operations
     always_comb begin
+        alu_do = '0;
+
         case (alu_ctrl)
-            0: begin
-                alu_do = A & B;
-            end
-
-            1: begin
-                alu_do = A | B;
-            end
-
-            2: begin
+            ADD: begin
                 alu_do = $signed(A) + $signed(B);
             end
 
-            6: begin
+            SUB: begin
                 alu_do = $signed(A) - $signed(B);
             end
 
-            7: begin
-                alu_do = $signed(A) < $signed(B) ? 1 : 0;
+            XOR: begin
+                alu_do = A ^ B;
             end
 
-            12: begin
-                alu_do = ~(A | B);
+            OR: begin
+                alu_do = A | B;
+            end
+
+            AND: begin
+                alu_do = A & B;
+            end
+
+            // For shift operations only the lower 5 bits are used
+            SLL: begin
+                alu_do = A << B[4:0];
+            end
+
+            SRL: begin
+                alu_do = A >> B[4:0];
+            end
+
+            SRA: begin
+                alu_do = $signed(A) >>> B[4:0];
             end
 
             default: begin
-                alu_do = 0;
+                alu_do = '0;
             end
         endcase
     end
 
+
     // Overflow detection
     always_comb begin
         case (alu_ctrl)
-            2: begin
+            ADD: begin
+                // Addition
                 ovf = (~A[31] & ~B[31] &  alu_do[31]) |
                       ( A[31] &  B[31] & ~alu_do[31]);
             end
 
-            6: begin
+            SUB: begin
+                // Subtraction
                 ovf = ( A[31] & ~B[31] & ~alu_do[31]) |
                       (~A[31] &  B[31] &  alu_do[31]);
             end

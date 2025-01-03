@@ -19,26 +19,35 @@ int main(int argc, char* argv[]) {
     dut->trace(m_trace, 5);
     m_trace->open("waveform.vcd");
 
-    // Reset inputs
+    // Apply test values
+    dut->A = 1;
+    dut->B = int(-(long(1 << 31)));
     dut->alu_ctrl = 0;
-    dut->A = 0;
-    dut->B = 0;
+
     dut->eval();
     m_trace->dump(sim_time);
+    sim_time++;
 
+    dut->eval();
+    m_trace->dump(sim_time);
+    sim_time++;
+
+    vluint64_t clock = 0;
     while (sim_time < MAX_SIM_TIME) {
-        dut->eval();
+        clock ^= 1;
 
-        if (sim_time % 2) {
+        if (clock) {
             posedge_cnt++;
-
-            dut->alu_ctrl = 6;
-            dut->A = 2;
-            dut->B = 2;
+            dut->alu_ctrl = dut->alu_ctrl + 1;
         }
 
-        sim_time++;
+        if (dut->alu_ctrl == 15) {
+            break;
+        }
+
+        dut->eval();  // Evaluate after changing inputs
         m_trace->dump(sim_time);
+        sim_time++;
     }
 
     m_trace->close();
