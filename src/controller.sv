@@ -135,10 +135,18 @@ module controller (
                 // Because no funct3, we need to use forced add,
                 // i.e. by using LOAD_STORE_OP which always doens an add
                 RegWrite = 1'b1;
-                RegWriteSrc = 1'b00;
+                RegWriteSrc = 2'b00;
                 alu_op = LOAD_STORE_OP;
                 alu_src_a = 1'b1;   // "0"
-                alu_src_b = 2'b10;  // PC + Imm
+                alu_src_b = 2'b10;  // Imm + PC
+            end
+
+            7'b0010111: begin
+                RegWrite = 1'b1;
+                RegWriteSrc = 2'b00;
+                alu_op = LOAD_STORE_OP;
+                alu_src_a = 1'b1;
+                alu_src_b = 2'b01;
             end
 
             default: begin

@@ -13,8 +13,8 @@ module register_file (
     input  logic [31:0] WriteData,
 
     // Read output data
-    output logic [31:0] RS1_DO,
-    output logic [31:0] RS2_DO
+    output logic [31:0] RD1,
+    output logic [31:0] RD2
 );
 
     // 32-bit Register declaration
@@ -39,11 +39,11 @@ module register_file (
     // Continually drive output data signals
     always_comb begin
         if (~rstn) begin
-            RS1_DO = '0;
-            RS2_DO = '0;
+            RD1 = '0;
+            RD2 = '0;
         end else begin
-            RS1_DO = regs[RS1];
-            RS2_DO = regs[RS2];
+            RD1 = regs[RS1];
+            RD2 = regs[RS2];
         end
     end
 
