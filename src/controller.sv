@@ -20,7 +20,6 @@ module controller (
     output logic [1:0] alu_op,
     output logic [0:0] alu_src_a,   // 0:  RD1, 1:  "0"
     output logic [1:0] alu_src_b,   // 00: RD2, 01: Imm, 10: Imm + PC
-    // TODO: Add logic for determining src_a and src_b
 
     // MEM
     output logic MemWrite,
@@ -56,6 +55,8 @@ module controller (
         JumpSrc = 1'b0;
 
         alu_op = 2'b00;
+        alu_src_a = 1'b0;
+        alu_src_b = 2'b00;
 
         MemWrite = 1'b0;
         RegWrite = 1'b0;
@@ -143,11 +144,15 @@ module controller (
             default: begin
                 Branch = 1'b0;
                 Jump = 1'b0;
+                JumpSrc = 1'b0;
+
                 alu_op = 2'b00;
+                alu_src_a = 1'b0;
+                alu_src_b = 2'b00;
+
                 MemWrite = 1'b0;
-                MemRead = 1'b0;
                 RegWrite = 1'b0;
-                RegWriteSrc = 1'b0;
+                RegWriteSrc = 2'b00;
             end
         endcase
     end

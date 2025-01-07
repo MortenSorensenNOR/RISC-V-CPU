@@ -30,7 +30,7 @@ module register_file (
         if (~rstn) begin
             foreach (regs[i]) regs[i] <= '0;
         end else begin
-            if (RegWrite) begin
+            if (RegWrite && RD != '0) begin     // Cannot write to reg0, always "0"
                 regs[RD] <= WriteData;
             end
         end
