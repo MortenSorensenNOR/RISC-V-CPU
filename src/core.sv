@@ -2,12 +2,22 @@
 
 module core (
     input logic clk,
-    input logic rstn
+    input logic rstn,
+
+    // IF
+    output logic [31:0] o_instr_mem_read_addr,
+    input  logic [31:0] i_instruction,
+
+    // MEM
+    output logic o_data_mem_write_en,
+    output logic o_data_mem_read_en,
+    output logic [31:0] o_data_mem_addr,
+    output logic [31:0] o_mem_write_data,
+    input  logic [31:0] i_mem_read_data
 );
     // ======= Instruction fetch =======
     // Program counter
     logic [31:0] r_pc;
-    logic [31:0] w_instruction;
 
     // Hazard Stall
     logic w_if_stall;
@@ -27,14 +37,11 @@ module core (
     logic [4:0]  w_wb_id_rd;
 
     // ======= Instruction decode =======
-    logic [6:0] w_id_opcode;
     logic [6:0] w_id_funct7;
     logic [2:0] w_id_funct3;
 
     // Register Source/Dest
-    logic [4:0] w_id_rs1;
-    logic [4:0] w_id_rs2;
-    logic [4:0] w_id_rd;
+    logic [4:0] w_id_rs1, w_id_rs2, w_id_rd;
 
     // PC Control Word
     logic w_id_branch;
@@ -57,7 +64,6 @@ module core (
     // Controll unit
     controller controller_inst (
         .instruction(r_if_id_instruction),
-        .opcode(w_id_opcode),
         .funct7(w_id_funct7),
         .funct3(w_id_funct3),
 
@@ -77,7 +83,7 @@ module core (
         .MemRead(w_id_mem_read),
 
         .RegWrite(w_id_reg_write),
-        .RegWrite_Src(w_id_reg_write_src)
+        .RegWriteSrc(w_id_reg_write_src)
     );
 
     // Immedate generation
@@ -113,10 +119,7 @@ module core (
     // Control Words
     logic [6:0] r_id_ex_funct7;
     logic [2:0] r_id_ex_funct3;
-
-    logic [4:0] r_id_ex_rs1;
-    logic [4:0] r_id_ex_rs2;
-    logic [4:0] r_id_ex_rd;
+    logic [4:0] r_id_ex_rs1, r_id_ex_rs2, r_id_ex_rd;
 
     // -- EX
     logic [1:0] r_id_ex_alu_op;
@@ -132,12 +135,7 @@ module core (
     logic [1:0] r_id_ex_reg_write_src;
 
     // Data
-    logic [31:0] r_id_ex_rd1;
-    logic [31:0] r_id_ex_rd2;
-    logic [31:0] r_id_ex_imm;
-
-    logic [31:0] r_id_ex_pc;
-    logic [31:0] r_id_ex_pc_p4;         // PC + 4 -> next instruction
+    logic [31:0] r_id_ex_rd1, r_id_ex_rd2, r_id_ex_imm, r_id_ex_pc, r_id_ex_pc_p4;
 
     // ======= EX =======
     // ALU Controller Declaration
@@ -152,20 +150,15 @@ module core (
     );
 
     // ALU Declaration
-    logic [31:0] w_alu_A;
-    logic [31:0] w_alu_B;
-    logic [31:0] w_alu_do;
-
+    logic [31:0] w_alu_A, w_alu_B, w_alu_do;
     logic w_alu_zero;
     logic w_alu_ovf;
 
     alu alu_inst (
         .alu_ctrl(w_alu_ctrl),
-
         .A(r_alu_A),
         .B(r_alu_B),
         .alu_do(r_alu_do),
-
         .zero(w_alu_zero),
         .ovf(w_alu_ovf)
     );
@@ -216,6 +209,7 @@ module core (
     );
 
     // ======= Forwarding =======
+    
 
     // ======= Hazard =======
 

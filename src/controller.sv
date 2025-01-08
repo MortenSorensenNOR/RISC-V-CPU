@@ -2,7 +2,6 @@
 
 module controller (
     input logic [31:0] instruction,
-    output logic [6:0] opcode,
     output logic [6:0] funct7,
     output logic [2:0] funct3,
 
@@ -38,6 +37,7 @@ module controller (
     } alu_op_decode_t;
 
     // Segmenting the opcode, funct7 and funct3 for convenience
+    logic [6:0] opcode; // Local reference only
     assign opcode = instruction[6:0];
     assign funct7 = instruction[31:25];
     assign funct3 = instruction[14:12];

@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module write_back (
+module wb (
     input logic WB_RegWrite,
     input logic [4:0] WB_RD,
     input logic [1:0] RegWriteSrc,
