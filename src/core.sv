@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module cpu (
+module core (
     input logic clk,
     input logic rstn
 );
@@ -12,7 +12,7 @@ module cpu (
     // Hazard Stall
     logic w_if_stall;
 
-    // ======= ID-IF Register =======
+    // ======= IF-ID Register =======
     // Hazard stall/ branch flush
     logic w_id_stall;
     logic w_id_flush;
@@ -20,6 +20,11 @@ module cpu (
     logic [31:0] r_if_id_pc;
     logic [31:0] r_if_id_pc_p4;         // PC + 4 -> next instruction
     logic [31:0] r_if_id_instruction;
+
+    // ======= WB-ID Signals =======
+    logic w_wb_id_reg_write;
+    logic [31:0] w_wb_id_reg_write_data;
+    logic [4:0]  w_wb_id_rd;
 
     // ======= Instruction decode =======
     logic [6:0] w_id_opcode;
@@ -76,6 +81,11 @@ module cpu (
     );
 
     // Immedate generation
+    logic [31:0] w_id_imm;
+    immediate_generator imm_gen_inst (
+        .instruction(r_if_id_instruction),
+        .imm(w_id_imm)
+    );
 
     // Register file declaration
     logic [31:0] w_id_rd1;
@@ -87,10 +97,10 @@ module cpu (
 
         .RS1(w_id_rs1),
         .RS2(w_id_rs2),
-        .RD(),
+        .RD(w_wb_id_rd),
 
-        .RegWrite(),
-        .WriteData(),
+        .RegWrite(w_wb_id_reg_write),
+        .WriteData(w_wb_id_reg_write_data),
 
         .RD1(w_id_rd1),
         .RD2(w_id_rd2)
@@ -165,31 +175,45 @@ module cpu (
     logic [4:0] r_ex_mem_rd;
 
     // -- MEM
-    logic r_id_ex_mem_write;
-    logic r_id_ex_mem_read;
-    logic [31:0] r_id_ex_write_data;    // Data to be written to data memory
+    logic r_ex_mem_mem_write;
+    logic r_ex_mem_mem_read;
+    logic [31:0] r_ex_mem_mem_write_data;   // Data to be written to data memory
+    logic [31:0] r_ex_mem_mem_write_addr;   // Doubles as alu result
 
     // -- WB
-    logic r_id_ex_reg_write;
-    logic [1:0] r_id_ex_reg_write_src;
+    logic r_ex_mem_reg_write;
+    logic [1:0] r_ex_mem_reg_write_src;
 
     // -- PC
-    logic [31:0] r_id_ex_pc_p4;         // Used for jal as return address
+    logic [31:0] r_ex_mem_pc_p4;         // Used for jal as return address
 
     // ======= MEM =======
 
     // ======= MEM-WB Register =======
-    // Control Words
+    logic r_mem_wb_reg_write;
+
+    logic [1:0] r_mem_wb_reg_write_src;
     logic [4:0] r_mem_wb_rd;
 
-    // -- WB
-    logic r_mem_wb_reg_write;
-    logic [1:0] r_mem_wb_reg_write_src;
-
-    // -- PC
+    // Data
+    logic [31:0] r_mem_wb_alu_result;
+    logic [31:0] r_mem_wb_read_data;
     logic [31:0] r_mem_wb_pc_p4;         // Used for jal as return address
 
     // ======= WB =======
+    write_back write_back_inst (
+        .WB_RegWrite(r_mem_wb_reg_write),
+        .WB_RD(r_mem_rd),
+        .RegWriteSrc(r_mem_wb_reg_write_src),
+
+        .AluResult(r_mem_wb_alu_result),
+        .ReadData(r_mem_wb_read_data),
+        .PCPlus4(r_mem_wb_pc_p4),
+
+        .ID_RegWrite(w_wb_id_reg_write),
+        .ID_RegWriteData(w_wb_id_reg_write_data),
+        .ID_RD(w_wb_id_rd)
+    );
 
     // ======= Forwarding =======
 
