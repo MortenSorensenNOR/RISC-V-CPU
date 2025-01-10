@@ -7,7 +7,24 @@ module core_datapath (
 
     // ========== INSTRUCTION FETCH STAGE ==========
     if_stage if_stage_inst (
+        .clk(clk),
+        .rstn(rstn),
 
+        // PC
+        .PCNextSrc,
+        .PCJumpTargetSrc,
+
+        .pc_plus_imm,
+        .pc_target_alu,
+
+        .if_pc,
+        .if_pc_p4,
+
+        // Instruction fetching
+        .o_instr_mem_read_addr,
+        .i_instr_mem_read_data,
+
+        .if_instr
     );
 
     // ========== IF-ID Regs ==========
