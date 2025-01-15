@@ -98,12 +98,12 @@ module id_stage (
 
         .Branch(w_id_branch),
         .Jump(w_id_jump),
-        .Jumpsrc(w_id_jump_src),
+        .JumpSrc(w_id_jump_src),
 
         .alu_op(w_id_alu_op),
         .alu_src_a(w_id_alu_src_a),
         .alu_src_b(w_id_alu_src_b),
-        
+
         .MemWrite(w_id_mem_write),
         .MemRead(w_id_mem_read),
 

@@ -31,6 +31,7 @@ int main(int argc, char* argv[]) {
     m_trace->open("waveform.vcd");
 
     // Apply test values
+    apply_test_instruction(dut, 0x0, 0);                    // NOP
     apply_test_instruction(dut, 0xf8500313, -123);          // I-type: ADDI
     apply_test_instruction(dut, 0x4d200313, 1234);          // I-type: ADDI
     apply_test_instruction(dut, 0xb220a723, -1234);         // S-type: SW

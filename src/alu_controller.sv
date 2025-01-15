@@ -46,7 +46,7 @@ module alu_controller (
                     3'h0: begin
                         if (funct7 == 7'h00) begin
                             alu_ctrl = ADD;
-                        end else if (funcy7 == 7'h20) begin
+                        end else if (funct7 == 7'h20) begin
                             alu_ctrl = SUB;
                         end else begin
                             alu_ctrl = NOP;
@@ -72,7 +72,7 @@ module alu_controller (
                     3'h5: begin
                         if (funct7 == 7'h00) begin
                             alu_ctrl = SRL;
-                        end else if (funcy7 == 7'h20) begin
+                        end else if (funct7 == 7'h20) begin
                             alu_ctrl = SRA;
                         end else begin
                             alu_ctrl = NOP;
@@ -110,7 +110,7 @@ module alu_controller (
                     3'h5: begin
                         if (funct7 == 7'h00) begin
                             alu_ctrl = SRL;
-                        end else if (funcy7 == 7'h20) begin
+                        end else if (funct7 == 7'h20) begin
                             alu_ctrl = SRA;
                         end else begin
                             alu_ctrl = NOP;

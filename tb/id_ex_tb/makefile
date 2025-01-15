@@ -1,9 +1,12 @@
-SRC_DIR = ../src
-MODULE=MODULE_NAME
+SRC_DIR = ../../src
+MODULE=id_ex_tb
 
 IMPORTS=\
-	$(SRC_DIR)/cpu.sv \
-	$(SRC_DIR)/cpu_datapath.sv
+	$(SRC_DIR)/controller.sv \
+	$(SRC_DIR)/immediate_generator.sv \
+	$(SRC_DIR)/alu_controller.sv \
+	$(SRC_DIR)/alu.sv \
+	$(SRC_DIR)/ex_stage.sv
 
 .PHONY:sim
 sim: waveform.vcd
@@ -30,11 +33,11 @@ waveform.vcd: ./obj_dir/V$(MODULE)
 	@echo "### BUILDING SIM ###"
 	make -C obj_dir -f V$(MODULE).mk V$(MODULE)
 
-.stamp.verilate: $(SRC_DIR)/$(MODULE).sv $(IMPORTS) $(MODULE).cpp
+.stamp.verilate: $(MODULE).sv $(IMPORTS) $(MODULE).cpp
 	@echo
 	@echo "### VERILATING ###"
 	verilator -Wall --trace --x-assign unique --x-initial unique \
-		-cc $(SRC_DIR)/$(MODULE).sv $(IMPORTS) --exe $(MODULE).cpp
+		-cc $(MODULE).sv $(IMPORTS) --exe $(MODULE).cpp
 	@touch .stamp.verilate
 
 .PHONY:lint

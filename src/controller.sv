@@ -138,15 +138,16 @@ module controller (
                 RegWriteSrc = 2'b00;
                 alu_op = LOAD_STORE_OP;
                 alu_src_a = 1'b1;   // "0"
-                alu_src_b = 2'b10;  // Imm + PC
+                alu_src_b = 2'b01;  // Imm
             end
 
             7'b0010111: begin
+                // auipc
                 RegWrite = 1'b1;
                 RegWriteSrc = 2'b00;
                 alu_op = LOAD_STORE_OP;
                 alu_src_a = 1'b1;
-                alu_src_b = 2'b01;
+                alu_src_b = 2'b10; // PC + Imm
             end
 
             default: begin
