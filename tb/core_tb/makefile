@@ -11,6 +11,7 @@ IMPORTS=\
 	$(SRC_DIR)/ID_EX_Reg.sv \
 	$(SRC_DIR)/alu_controller.sv \
 	$(SRC_DIR)/alu.sv \
+	$(SRC_DIR)/forwarding_unit.sv \
 	$(SRC_DIR)/ex_stage.sv \
 	$(SRC_DIR)/EX_MEM_Reg.sv \
 	$(SRC_DIR)/load_store_stage.sv \

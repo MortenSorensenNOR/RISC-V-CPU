@@ -249,10 +249,20 @@ module core (
         .alu_src_a(id_ex_alu_src_a),
         .alu_src_b(id_ex_alu_src_b),
 
+        .rs1(id_ex_rs1),
+        .rs2(id_ex_rs2),
         .rd1(id_ex_rd1),
         .rd2(id_ex_rd2),
         .imm(id_ex_imm),
         .branch_target(id_ex_branch_target),
+
+        .mem_reg_write(ex_mem_reg_write),
+        .mem_rd(ex_mem_rd),
+        .wb_reg_write(mem_wb_reg_write),
+        .wb_rd(mem_wb_rd),
+
+        .mem_forward_value(ex_mem_alu_result),
+        .wb_forward_value(wb_reg_write_data),
 
         .AluResult(ex_alu_result),
         .AluZero(ex_alu_zero),

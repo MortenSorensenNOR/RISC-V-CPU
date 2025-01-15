@@ -8,10 +8,20 @@ module ex_stage (
     input logic [0:0] alu_src_a,
     input logic [1:0] alu_src_b,
 
+    input logic [4:0] rs1,
+    input logic [4:0] rs2,
     input logic [31:0] rd1,
     input logic [31:0] rd2,
     input logic [31:0] imm,
     input logic [31:0] branch_target,
+
+    input logic mem_reg_write,
+    input logic [4:0] mem_rd,
+    input logic wb_reg_write,
+    input logic [4:0] wb_rd,
+
+    input logic [31:0] mem_forward_value,
+    input logic [31:0] wb_forward_value,
 
     output logic [31:0] AluResult,
     output logic AluZero,
@@ -29,13 +39,46 @@ module ex_stage (
         .alu_ctrl(alu_ctrl)
     );
 
+    // ========== ALU Controller ==========
+    logic [1:0] forward_alu_a, forward_alu_b;
+
+    forwarding_unit forwarding_unit_inst (
+        .mem_reg_write(mem_reg_write),
+        .mem_rd(mem_rd),
+
+        .wb_reg_write(wb_reg_write),
+        .wb_rd(wb_rd),
+
+        .ex_rs1(rs1),
+        .ex_rs2(rs2),
+
+        .ex_forward_alu_a(forward_alu_a),
+        .ex_forward_alu_b(forward_alu_b)
+    );
+
     // ========== ALU Src A ==========
     logic [31:0] A;
 
     always_comb begin
         case (alu_src_a)
             1'b0: begin
-                A = rd1;
+                case (forward_alu_a)
+                    2'b00: begin
+                        A = rd1;
+                    end
+
+                    2'b01: begin
+                        A = wb_forward_value;
+                    end
+
+                    2'b10: begin
+                        A = mem_forward_value;
+                    end
+
+                    default: begin
+                        A = '0;
+                    end
+                endcase
             end
 
             default: begin
@@ -50,7 +93,23 @@ module ex_stage (
     always_comb begin
         case (alu_src_b)
             2'b00: begin
-                B = rd2;
+                case (forward_alu_b)
+                    2'b00: begin
+                        B = rd2;
+                    end
+
+                    2'b01: begin
+                        B = wb_forward_value;
+                    end
+
+                    2'b10: begin
+                        B = mem_forward_value;
+                    end
+
+                    default: begin
+                        B = '0;
+                    end
+                endcase
             end
 
             2'b01: begin
