@@ -2,7 +2,11 @@
 
 module core_datapath (
     input logic clk,
-    input logic rstn
+    input logic rstn,
+
+
+    output logic [31:0] o_instr_mem_read_addr,
+    input logic [31:0] i_instr_mem_read_data
 );
     // IF
     logic if_pc_next_src, if_pc_jump_target_src;
@@ -49,26 +53,41 @@ module core_datapath (
     logic [1:0] id_ex_reg_write_src;
     logic [31:0] id_ex_imm;
 
+    // EX
+    logic [31:0] ex_alu_result;
+    logic ex_alu_zero;
+    logic ex_alu_ovf;
+    logic ex_alu_sign;
+
+    // EX-Load/Store
+    logic [31:0] ex_mem_pc_p4;
+    logic [4:0]  ex_mem_rd;
+    logic [31:0] ex_mem_alu_result;  // Doubles as the address for MEM write
+    logic ex_mem_mem_write;
+    logic [31:0] ex_mem_mem_write_data;
+    logic ex_mem_reg_write;
+    logic ex_mem_reg_write_src;
+
     // ========== INSTRUCTION FETCH STAGE ==========
     if_stage if_stage_inst (
         .clk(clk),
         .rstn(rstn),
 
         // PC
-        .PCNextSrc,
-        .PCJumpTargetSrc,
+        .PCNextSrc(if_pc_next_src),
+        .PCJumpTargetSrc(if_pc_jump_target_src),
 
-        .pc_plus_imm,
-        .pc_target_alu,
+        .pc_plus_imm(if_pc_pluss_imm),
+        .pc_target_alu(if_target_alu),
 
-        .if_pc,
-        .if_pc_p4,
+        .if_pc(if_pc),
+        .if_pc_p4(if_pc_p4),
 
         // Instruction fetching
-        .o_instr_mem_read_addr,
-        .i_instr_mem_read_data,
+        .o_instr_mem_read_addr(o_instr_mem_read_addr),
+        .i_instr_mem_read_data(i_instr_mem_read_data),
 
-        .if_instr
+        .if_instr(if_istr)
     );
 
     // ========== IF-ID Regs ==========
@@ -204,27 +223,56 @@ module core_datapath (
 
     // ========== EX STAGE ==========
     ex_stage ex_stage_inst (
+        .alu_op(id_ex_alu_op),
+        .funct7(id_ex_funct7),
+        .funct3(id_ex_funct3),
 
+        .alu_src_a(id_ex_alu_src_a),
+        .alu_src_b(id_ex_alu_src_b),
+
+        .rd1(id_ex_rd1),
+        .rd2(id_ex_rd2),
+        .imm(id_ex_imm),
+        .branch_target(id_ex_branch_target),
+
+        .AluResult(ex_alu_result),
+        .AluZero(ex_alu_zero),
+        .AluOvf(ex_alu_ovf),
+        .AluSign(ex_alu_sign)
     );
 
     // ========== EX-MEM Regs ==========
     EX_MEM_Reg ex_mem_reg_inst (
-        
+        .clk(clk),
+        .rstn(rstn),
+
+        .ex_pc_p4(id_ex_pc_p4),
+        .ex_rd(id_ex_rd),
+        .ex_alu_result(ex_alu_result),
+        .ex_mem_write(id_ex_mem_write),
+        .ex_mem_write_data(id_ex_rd2),
+        .ex_reg_write(id_ex_reg_write),
+        .ex_reg_write_src(id_ex_reg_write_src),
+
+        .ex_mem_pc_p4(ex_mem_pc_p4),
+        .ex_mem_rd(ex_mem_rd),
+        .ex_mem_alu_result(ex_mem_alu_result),
+        .ex_mem_mem_write(ex_mem_mem_write),
+        .ex_mem_mem_write_data(ex_mem_mem_write_data),
+        .ex_mem_reg_write(ex_mem_reg_write),
+        .ex_mem_reg_write_src(ex_mem_reg_write_src)
     );
 
     // ========== LOAD STORE STAGE ==========
     load_store_stage load_store_stage_inst (
-
     );
 
     // ========== MEM-WB Regs ==========
     MEM_WB_Reg mem_wb_reg_inst (
-        
     );
 
     // ========== WB STAGE ==========
     wb_stage wb_stage_inst (
-
     );
 
 endmodule
