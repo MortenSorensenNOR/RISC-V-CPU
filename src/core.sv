@@ -66,6 +66,7 @@ module core (
     logic ex_alu_zero;
     logic ex_alu_ovf;
     logic ex_alu_sign;
+    logic [31:0] ex_mem_write_data;
 
     // EX-Load/Store
     logic [31:0] ex_mem_pc_p4;
@@ -267,7 +268,9 @@ module core (
         .AluResult(ex_alu_result),
         .AluZero(ex_alu_zero),
         .AluOvf(ex_alu_ovf),
-        .AluSign(ex_alu_sign)
+        .AluSign(ex_alu_sign),
+
+        .MemWriteData(ex_mem_write_data)
     );
 
     // ========== EX-MEM Regs ==========
@@ -280,7 +283,7 @@ module core (
         .ex_alu_result(ex_alu_result),
         .ex_mem_read(id_ex_mem_read),
         .ex_mem_write(id_ex_mem_write),
-        .ex_mem_write_data(id_ex_rd2),
+        .ex_mem_write_data(ex_mem_write_data),
         .ex_reg_write(id_ex_reg_write),
         .ex_reg_write_src(id_ex_reg_write_src),
 

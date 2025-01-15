@@ -26,7 +26,9 @@ module ex_stage (
     output logic [31:0] AluResult,
     output logic AluZero,
     output logic AluOvf,
-    output logic AluSign
+    output logic AluSign,
+
+    output logic [31:0] MemWriteData
 );
 
     // ========== ALU Controller ==========
@@ -57,28 +59,31 @@ module ex_stage (
     );
 
     // ========== ALU Src A ==========
+    logic [31:0] rd1_forwarded;
     logic [31:0] A;
 
     always_comb begin
+        case (forward_alu_a)
+            2'b00: begin
+                rd1_forwarded = rd1;
+            end
+
+            2'b01: begin
+                rd1_forwarded = wb_forward_value;
+            end
+
+            2'b10: begin
+                rd1_forwarded = mem_forward_value;
+            end
+
+            default: begin
+                rd1_forwarded = '0;
+            end
+        endcase
+
         case (alu_src_a)
             1'b0: begin
-                case (forward_alu_a)
-                    2'b00: begin
-                        A = rd1;
-                    end
-
-                    2'b01: begin
-                        A = wb_forward_value;
-                    end
-
-                    2'b10: begin
-                        A = mem_forward_value;
-                    end
-
-                    default: begin
-                        A = '0;
-                    end
-                endcase
+                A = rd1_forwarded;
             end
 
             default: begin
@@ -88,28 +93,31 @@ module ex_stage (
     end
 
     // ========== ALU Src B ==========
+    logic [31:0] rd2_forwarded;
     logic [31:0] B;
 
     always_comb begin
+        case (forward_alu_b)
+            2'b00: begin
+                rd2_forwarded = rd2;
+            end
+
+            2'b01: begin
+                rd2_forwarded = wb_forward_value;
+            end
+
+            2'b10: begin
+                rd2_forwarded = mem_forward_value;
+            end
+
+            default: begin
+                rd2_forwarded = '0;
+            end
+        endcase
+
         case (alu_src_b)
             2'b00: begin
-                case (forward_alu_b)
-                    2'b00: begin
-                        B = rd2;
-                    end
-
-                    2'b01: begin
-                        B = wb_forward_value;
-                    end
-
-                    2'b10: begin
-                        B = mem_forward_value;
-                    end
-
-                    default: begin
-                        B = '0;
-                    end
-                endcase
+                B = rd2_forwarded;
             end
 
             2'b01: begin
@@ -145,5 +153,7 @@ module ex_stage (
     assign AluZero = w_alu_zero;
     assign AluOvf = w_alu_ovf;
     assign AluSign = w_alu_do[31];
+
+    assign MemWriteData = rd2_forwarded;
 
 endmodule

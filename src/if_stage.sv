@@ -25,6 +25,8 @@ module if_stage #(
 );
 
     logic [31:0] PC;
+    logic reset_last = 1'b0;    // Ensure that we do not increment
+                                // before one clock after a reset
 
     // PC + 4
     logic [31:0] pc_p4;
@@ -50,8 +52,13 @@ module if_stage #(
     always_ff @(posedge clk) begin
         if (~rstn) begin
             PC <= CPU_RESET_VECTOR;
+            reset_last <= 1'b1;
         end else begin
-            PC <= w_pc_next;
+            reset_last <= 1'b0;
+
+            if (~reset_last) begin
+                PC <= w_pc_next;
+            end
         end
     end
 
