@@ -68,6 +68,18 @@ module core_datapath (
     logic ex_mem_reg_write;
     logic ex_mem_reg_write_src;
 
+    // MEM
+
+    // MEM-WB
+    logic [31:0] mem_wb_pc_p4;
+    logic [4:0]  mem_wb_rd;
+    logic [31:0] mem_wb_alu_result;
+    logic [31:0] mem_wb_mem_read_data;
+    logic mem_wb_reg_write;
+    logic [1:0] mem_wb_reg_write_src;
+
+    // WB
+
     // ========== INSTRUCTION FETCH STAGE ==========
     if_stage if_stage_inst (
         .clk(clk),
@@ -269,6 +281,22 @@ module core_datapath (
 
     // ========== MEM-WB Regs ==========
     MEM_WB_Reg mem_wb_reg_inst (
+        .clk(clk),
+        .rstn(rstn),
+
+        .mem_pc_p4(id_ex_pc_p4),
+        .mem_rd(id_ex_rd),
+        .mem_alu_result(mem_alu_result),
+        .mem_mem_read_data(mem_mem_read_data),
+        .mem_reg_write(mem_reg_write),
+        .mem_reg_write_src(mem_reg_write_src),
+
+        .mem_wb_pc_p4(mem_wb_pc_p4),
+        .mem_wb_rd(mem_wb_rd),
+        .mem_wb_alu_result(mem_wb_alu_result),
+        .mem_wb_mem_read_data(mem_wb_mem_read_data),
+        .mem_wb_reg_write(mem_wb_reg_write),
+        .mem_wb_reg_write_src(mem_wb_reg_write_src)
     );
 
     // ========== WB STAGE ==========
