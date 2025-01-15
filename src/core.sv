@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
 
+/* verilator lint_off UNUSED */
 module core (
     input logic clk,
     input logic rstn,
@@ -8,7 +9,7 @@ module core (
     output logic [31:0] o_instr_mem_read_addr,
     input logic [31:0] i_instr_mem_read_data,
 
-    // WB
+    // MEM
     output logic [31:0] o_data_mem_addr,
     output logic [31:0] o_data_mem_write_data,
     output logic o_data_mem_read_en,
@@ -40,7 +41,7 @@ module core (
     logic [0:0] id_alu_src_a;
     logic id_mem_write, id_mem_read;
     logic id_reg_write;
-    logic [1:0] id_reg_write;
+    logic [1:0] id_reg_write_src;
     logic [31:0] id_imm, id_branch_target;
 
     // ID-EX
@@ -51,7 +52,7 @@ module core (
     logic [2:0] id_ex_funct3;
     logic [4:0] id_ex_rs1, id_ex_rs2, id_ex_rd;
     logic [31:0] id_ex_rd1, id_ex_rd2;
-    logic id_ex_branch, id_ex_jump;
+    logic id_ex_branch, id_ex_jump, id_ex_jump_src;
     logic [1:0] id_ex_alu_op;
     logic [0:0] id_ex_alu_src_a;
     logic [1:0] id_ex_alu_src_b;
@@ -70,10 +71,10 @@ module core (
     logic [31:0] ex_mem_pc_p4;
     logic [4:0]  ex_mem_rd;
     logic [31:0] ex_mem_alu_result;  // Doubles as the address for MEM write
-    logic ex_mem_mem_write;
+    logic ex_mem_mem_write, ex_mem_mem_read;
     logic [31:0] ex_mem_mem_write_data;
     logic ex_mem_reg_write;
-    logic ex_mem_reg_write_src;
+    logic [1:0] ex_mem_reg_write_src;
 
     // MEM
     logic [31:0] mem_read_data;
@@ -105,7 +106,7 @@ module core (
         .o_instr_mem_read_addr(o_instr_mem_read_addr),
         .i_instr_mem_read_data(i_instr_mem_read_data),
 
-        .if_instr(if_istr)
+        .if_instr(if_instr)
     );
 
     // ========== IF-ID Regs ==========
@@ -177,8 +178,8 @@ module core (
         .id_ex_flush(id_ex_flush),
 
         // Input
-        .id_pc(id_pc),
-        .id_pc_p4(id_pc_p4),
+        .id_pc(if_id_pc),
+        .id_pc_p4(if_id_pc_p4),
         .id_branch_target(id_branch_target),
 
         .id_funct7(id_funct7),
@@ -267,6 +268,7 @@ module core (
         .ex_pc_p4(id_ex_pc_p4),
         .ex_rd(id_ex_rd),
         .ex_alu_result(ex_alu_result),
+        .ex_mem_read(id_ex_mem_read),
         .ex_mem_write(id_ex_mem_write),
         .ex_mem_write_data(id_ex_rd2),
         .ex_reg_write(id_ex_reg_write),
@@ -275,6 +277,7 @@ module core (
         .ex_mem_pc_p4(ex_mem_pc_p4),
         .ex_mem_rd(ex_mem_rd),
         .ex_mem_alu_result(ex_mem_alu_result),
+        .ex_mem_mem_read(ex_mem_mem_read),
         .ex_mem_mem_write(ex_mem_mem_write),
         .ex_mem_mem_write_data(ex_mem_mem_write_data),
         .ex_mem_reg_write(ex_mem_reg_write),
@@ -284,9 +287,9 @@ module core (
     // ========== LOAD STORE STAGE ==========
     load_store_stage load_store_stage_inst (
         .DataAddr(ex_mem_alu_result),
-        .WriteData(ex_mem_write_data),
+        .WriteData(ex_mem_mem_write_data),
         .WriteEnable(ex_mem_mem_write),
-        .ReadEnable(),  // TODO
+        .ReadEnable(ex_mem_mem_read),
         .ReadData(mem_read_data),
 
         // External signals
@@ -302,12 +305,12 @@ module core (
         .clk(clk),
         .rstn(rstn),
 
-        .mem_pc_p4(id_ex_pc_p4),
-        .mem_rd(id_ex_rd),
-        .mem_alu_result(mem_alu_result),
-        .mem_mem_read_data(mem_mem_read_data),
-        .mem_reg_write(mem_reg_write),
-        .mem_reg_write_src(mem_reg_write_src),
+        .mem_pc_p4(ex_mem_pc_p4),
+        .mem_rd(ex_mem_rd),
+        .mem_alu_result(ex_mem_alu_result),
+        .mem_mem_read_data(mem_read_data),
+        .mem_reg_write(ex_mem_reg_write),
+        .mem_reg_write_src(ex_mem_reg_write_src),
 
         .mem_wb_pc_p4(mem_wb_pc_p4),
         .mem_wb_rd(mem_wb_rd),
@@ -324,12 +327,24 @@ module core (
         .RegWriteSrc(mem_wb_reg_write_src),
 
         .AluResult(mem_wb_alu_result),
-        .ReadData(mem_wb_read_data),
+        .ReadData(mem_wb_mem_read_data),
         .PCPlus4(mem_wb_pc_p4),
 
         .ID_RegWrite(wb_reg_write),
         .ID_RegWriteData(wb_reg_write_data),
         .ID_RD(wb_reg_write_rd)
     );
+
+    // EX-IF Signals
+    assign if_pc_pluss_imm = id_ex_branch_target;
+    assign if_target_alu   = ex_alu_result;
+
+    // TODO: Make Hazard detection unit as well as implement branch
+    assign if_pc_next_src = '0;
+    assign if_pc_jump_target_src = '0;
+
+    assign if_id_stall = '0;
+    assign if_id_flush = '0;
+    assign id_ex_flush = '0;
 
 endmodule

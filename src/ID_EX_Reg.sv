@@ -71,38 +71,38 @@ module ID_EX_Reg (
 );
 
     initial begin
-        id_ex_pc <= '0;
-        id_ex_pc_p4 <= '0;
-        id_ex_branch_target <= '0;
+        id_ex_pc = '0;
+        id_ex_pc_p4 = '0;
+        id_ex_branch_target = '0;
 
-        id_ex_funct7 <= '0;
-        id_ex_funct3 <= '0;
+        id_ex_funct7 = '0;
+        id_ex_funct3 = '0;
 
-        id_ex_rs1 <= '0;
-        id_ex_rs2 <= '0;
-        id_ex_rd <= '0;
+        id_ex_rs1 = '0;
+        id_ex_rs2 = '0;
+        id_ex_rd = '0;
 
-        id_ex_rd1 <= '0;
-        id_ex_rd2 <= '0;
+        id_ex_rd1 = '0;
+        id_ex_rd2 = '0;
 
-        id_ex_branch <= '0;
-        id_ex_jump <= '0;
-        id_ex_jump_src <= '0;
+        id_ex_branch = '0;
+        id_ex_jump = '0;
+        id_ex_jump_src = '0;
 
-        id_ex_alu_op <= '0;
-        id_ex_alu_src_a <= '0;
-        id_ex_alu_src_b <= '0;
+        id_ex_alu_op = '0;
+        id_ex_alu_src_a = '0;
+        id_ex_alu_src_b = '0;
 
-        id_ex_mem_write <= '0;
-        id_ex_mem_read <= '0;
+        id_ex_mem_write = '0;
+        id_ex_mem_read = '0;
 
-        id_ex_reg_write <= '0;
-        id_ex_reg_write_src <= '0;
+        id_ex_reg_write = '0;
+        id_ex_reg_write_src = '0;
 
-        id_ex_imm <= '0;
+        id_ex_imm = '0;
     end
 
-    always_ff @(posedge clk or negedge rstn) begin
+    always_ff @(posedge clk) begin
         if (~rstn) begin
             id_ex_pc <= '0;
             id_ex_pc_p4 <= '0;
@@ -191,7 +191,7 @@ module ID_EX_Reg (
                 id_ex_mem_read <= id_mem_read;
 
                 id_ex_reg_write <= id_reg_write;
-                id_ex_reg_write_src <= id_reg_write;
+                id_ex_reg_write_src <= id_reg_write_src;
 
                 id_ex_imm <= id_imm;
             end

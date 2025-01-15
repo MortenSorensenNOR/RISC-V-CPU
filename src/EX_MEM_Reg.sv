@@ -10,6 +10,7 @@ module EX_MEM_Reg (
 
     input logic [31:0] ex_alu_result,
 
+    input logic ex_mem_read,
     input logic ex_mem_write,
     input logic [31:0] ex_mem_write_data,
 
@@ -22,33 +23,36 @@ module EX_MEM_Reg (
 
     output logic [31:0] ex_mem_alu_result,  // Doubles as the address for MEM write
 
+    output logic ex_mem_mem_read,
     output logic ex_mem_mem_write,
     output logic [31:0] ex_mem_mem_write_data,
 
     output logic ex_mem_reg_write,
-    output logic ex_mem_reg_write_src
+    output logic [1:0] ex_mem_reg_write_src
 );
 
     initial begin
-        ex_mem_pc_p4 <= '0;
-        ex_mem_rd <= '0;
+        ex_mem_pc_p4 = '0;
+        ex_mem_rd = '0;
 
-        ex_mem_alu_result <= '0;
+        ex_mem_alu_result = '0;
 
-        ex_mem_mem_write <= '0;
-        ex_mem_mem_write_data <= '0;
+        ex_mem_mem_read = '0;
+        ex_mem_mem_write = '0;
+        ex_mem_mem_write_data = '0;
 
-        ex_mem_reg_write <= '0;
-        ex_mem_reg_write_src <= '0;
+        ex_mem_reg_write = '0;
+        ex_mem_reg_write_src = '0;
     end
 
-    always_ff @(posedge clk or negedge rstn) begin
+    always_ff @(posedge clk) begin
         if (~rstn) begin
             ex_mem_pc_p4 <= '0;
             ex_mem_rd <= '0;
 
             ex_mem_alu_result <= '0;
 
+            ex_mem_mem_read <= '0;
             ex_mem_mem_write <= '0;
             ex_mem_mem_write_data <= '0;
 
@@ -60,6 +64,7 @@ module EX_MEM_Reg (
 
             ex_mem_alu_result <= ex_alu_result;
 
+            ex_mem_mem_read <= ex_mem_read;
             ex_mem_mem_write <= ex_mem_write;
             ex_mem_mem_write_data <= ex_mem_write_data;
 

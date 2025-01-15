@@ -58,6 +58,7 @@ module controller (
         alu_src_a = 1'b0;
         alu_src_b = 2'b00;
 
+        MemRead  = 1'b0;
         MemWrite = 1'b0;
         RegWrite = 1'b0;
         RegWriteSrc = 2'b00;
@@ -159,6 +160,7 @@ module controller (
                 alu_src_a = 1'b0;
                 alu_src_b = 2'b00;
 
+                MemRead  = 1'b0;
                 MemWrite = 1'b0;
                 RegWrite = 1'b0;
                 RegWriteSrc = 2'b00;

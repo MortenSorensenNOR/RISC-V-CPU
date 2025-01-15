@@ -22,11 +22,14 @@ module register_file (
 
     // For simulation only
     initial begin
-        foreach (regs[i]) regs[i] <= '0;
+        foreach (regs[i]) regs[i] = '0;
     end
 
+    // Ensure x0 = 0
+    assign regs[0] = '0;
+
     // Write data on negative edge
-    always_ff @(negedge clk or negedge rstn) begin
+    always_ff @(negedge clk) begin
         if (~rstn) begin
             foreach (regs[i]) regs[i] <= '0;
         end else begin

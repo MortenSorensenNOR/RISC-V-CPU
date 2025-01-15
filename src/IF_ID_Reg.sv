@@ -17,12 +17,12 @@ module IF_ID_Reg (
 );
 
     initial begin
-        if_id_pc <= '0;
-        if_id_pc_p4 <= '0;
-        if_id_instr <= '0;
+        if_id_pc = '0;
+        if_id_pc_p4 = '0;
+        if_id_instr = '0;
     end
 
-    always_ff @(posedge clk or negedge rstn) begin
+    always_ff @(posedge clk) begin
         if (~rstn) begin
             if_id_pc <= '0;
             if_id_pc_p4 <= '0;

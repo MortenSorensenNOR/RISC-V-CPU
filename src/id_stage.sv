@@ -52,12 +52,13 @@ module id_stage (
 
         .RS1(w_id_rs1),
         .RS2(w_id_rs2),
-        .RD1(w_id_rd1),
-        .RD2(w_id_rd2),
-
         .RD(wb_reg_write_rd),
+
         .RegWrite(wb_reg_write),
         .WriteData(wb_reg_write_data),
+
+        .RD1(w_id_rd1),
+        .RD2(w_id_rd2)
     );
 
     // ========== Immediate Generator ==========
@@ -108,7 +109,7 @@ module id_stage (
         .MemRead(w_id_mem_read),
 
         .RegWrite(w_id_reg_write),
-        .RegWriteSrc(w_id_reg_write)
+        .RegWriteSrc(w_id_reg_write_src)
     );
 
     // ========== Branch Target Adder ==========

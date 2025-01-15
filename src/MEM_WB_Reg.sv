@@ -18,7 +18,7 @@ module MEM_WB_Reg (
     output logic [31:0] mem_wb_pc_p4,
     output logic [4:0]  mem_wb_rd,
 
-    input logic [31:0] mem_wb_alu_result,
+    output logic [31:0] mem_wb_alu_result,
     output logic [31:0] mem_wb_mem_read_data,
 
     output logic mem_wb_reg_write,
@@ -26,17 +26,17 @@ module MEM_WB_Reg (
 );
 
     initial begin
-        mem_wb_pc_p4 <= '0;
-        mem_wb_rd <= '0;
+        mem_wb_pc_p4 = '0;
+        mem_wb_rd = '0;
 
-        mem_alu_result <= '0;
-        mem_wb_mem_read_data <= '0;
+        mem_wb_alu_result = '0;
+        mem_wb_mem_read_data = '0;
 
-        mem_wb_reg_write <= '0;
-        mem_wb_reg_write_src <= '0;
+        mem_wb_reg_write = '0;
+        mem_wb_reg_write_src = '0;
     end
 
-    always_ff @(posedge clk or negedge rstn) begin
+    always_ff @(posedge clk) begin
         if (~rstn) begin
             mem_wb_pc_p4 <= '0;
             mem_wb_rd <= '0;
