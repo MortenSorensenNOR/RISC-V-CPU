@@ -20,14 +20,15 @@ int32_t program_end;
 
 void reset_device_memory() {
     // Insert program
-    device_mem.at(0x0) = 0x00012297;    // auipc x5, 0x12
-    device_mem.at(0x4) = 0x07b00093;    // addi x1, x0, 123
-    device_mem.at(0x8) = 0xff600113;    // addi x2, x0, -10
-    device_mem.at(0xc) = 0x002081b3;    // add x3, x1, x2
-    device_mem.at(0x10) = 0x123021a3;   // sw x3, 0x123(x0)
-    device_mem.at(0x14) = 0x12302203;   // lw x4, 0x123(x0)
-    device_mem.at(0x18) = 0x105028a3;   // sw x5, 0x111(x0)
-    program_end = 0x18;
+    device_mem.at(0x0) = 0x800002b7;    // auipc x5, -524288
+    device_mem.at(0x4) = 0xfff28293;    // addi x5, x5, -1
+    device_mem.at(0x8) = 0x07b00093;    // addi x1, x0, 123
+    device_mem.at(0xc) = 0xff600113;    // addi x2, x0, -10
+    device_mem.at(0x10) = 0x002081b3;   // add x3, x1, x2
+    device_mem.at(0x14) = 0x123021a3;   // sw x3, 0x123(x0)
+    device_mem.at(0x18) = 0x12302203;   // lw x4, 0x123(x0)
+    device_mem.at(0x1c) = 0x105028a3;   // sw x5, 0x111(x0)
+    program_end = 0x1c;
 }
 
 int main(int argc, char* argv[]) {
@@ -77,7 +78,7 @@ int main(int argc, char* argv[]) {
 
             if (dut->o_data_mem_read_en) {
                 dut->i_data_mem_read_data = device_mem.at(dut->o_data_mem_addr);
-                printf("DATA: Read (0x%08x):\t0x%08x\t\t", dut->o_data_mem_addr, device_mem.at(dut->o_data_mem_addr));
+                printf("DATA: Read  (0x%08x):\t0x%08x\t\t", dut->o_data_mem_addr, device_mem.at(dut->o_data_mem_addr));
             }
             printf("\n");
 

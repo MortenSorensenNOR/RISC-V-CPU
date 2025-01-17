@@ -8,6 +8,9 @@ module ex_stage (
     input logic [0:0] alu_src_a,
     input logic [1:0] alu_src_b,
 
+    input logic branch,
+    input logic jump,
+
     input logic [4:0] rs1,
     input logic [4:0] rs2,
     input logic [31:0] rd1,
@@ -27,6 +30,8 @@ module ex_stage (
     output logic AluZero,
     output logic AluOvf,
     output logic AluSign,
+
+    output logic PCNextSrc,
 
     output logic [31:0] MemWriteData
 );
@@ -147,6 +152,18 @@ module ex_stage (
 
         .zero(w_alu_zero),
         .ovf(w_alu_ovf)
+    );
+
+    // ========== Branch logic ==========
+    branch_unit branch_unit_inst (
+        .funct3(3),
+        .Branch(branch),
+        .Jump(jump),
+
+        .AluZero(w_alu_zero),
+        .AluSign(w_alu_do[31]),
+
+        .PCNextSrc(PCNextSrc)
     );
 
     assign AluResult = w_alu_do;

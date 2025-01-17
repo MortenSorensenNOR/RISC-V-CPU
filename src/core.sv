@@ -66,6 +66,7 @@ module core (
     logic ex_alu_zero;
     logic ex_alu_ovf;
     logic ex_alu_sign;
+    logic ex_pc_next_src;
     logic [31:0] ex_mem_write_data;
 
     // EX-Load/Store
@@ -250,6 +251,9 @@ module core (
         .alu_src_a(id_ex_alu_src_a),
         .alu_src_b(id_ex_alu_src_b),
 
+        .branch(id_ex_branch),
+        .jump(id_ex_jump),
+
         .rs1(id_ex_rs1),
         .rs2(id_ex_rs2),
         .rd1(id_ex_rd1),
@@ -269,6 +273,8 @@ module core (
         .AluZero(ex_alu_zero),
         .AluOvf(ex_alu_ovf),
         .AluSign(ex_alu_sign),
+
+        .PCNextSrc(ex_pc_next_src),
 
         .MemWriteData(ex_mem_write_data)
     );
@@ -353,8 +359,8 @@ module core (
     assign if_target_alu   = ex_alu_result;
 
     // TODO: Make Hazard detection unit as well as implement branch
-    assign if_pc_next_src = '0;
-    assign if_pc_jump_target_src = '0;
+    assign if_pc_next_src = ex_pc_next_src;         // Decided by branch_unit
+    assign if_pc_jump_target_src = id_ex_jump_src;  // Decided in ID
 
     assign if_id_stall = '0;
     assign if_id_flush = '0;

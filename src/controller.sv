@@ -103,6 +103,7 @@ module controller (
             7'b1100011: begin
                 // Branch
                 Branch = 1'b1;
+                JumpSrc = 1'b0;
                 alu_op = BRANCHING_OP;
                 alu_src_a = 1'b0;
                 alu_src_b = 2'b00;
@@ -112,6 +113,7 @@ module controller (
                 // Jump, PC + imm   (jal)
                 // Does not use the ALU, uses seperate adder for now
                 Jump = 1'b1;
+                JumpSrc = 1'b0;
                 RegWrite = 1'b1;
                 RegWriteSrc = 2'b10;
             end
