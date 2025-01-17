@@ -17,7 +17,8 @@ IMPORTS=\
 	$(SRC_DIR)/EX_MEM_Reg.sv \
 	$(SRC_DIR)/load_store_stage.sv \
 	$(SRC_DIR)/MEM_WB_Reg.sv \
-	$(SRC_DIR)/wb_stage.sv
+	$(SRC_DIR)/wb_stage.sv \
+	$(SRC_DIR)/hazard_unit.sv
 
 .PHONY:sim
 sim: waveform.vcd

@@ -6,6 +6,8 @@ module if_stage #(
     input logic clk,
     input logic rstn,
 
+    input logic if_stall,
+
     // PC
     input logic PCNextSrc,              // 0: PC + 4, 1: PC+IMM/IMM+RS1
     input logic PCJumpTargetSrc,        // 0: PC+IMM, 1: IMM+RS1
@@ -56,7 +58,7 @@ module if_stage #(
         end else begin
             reset_last <= 1'b0;
 
-            if (~reset_last) begin
+            if (~reset_last && ~if_stall) begin
                 PC <= w_pc_next;
             end
         end

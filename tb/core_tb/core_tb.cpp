@@ -20,10 +20,17 @@ int32_t program_end;
 
 void reset_device_memory() {
     // Insert program
-    device_mem.at(0x0) = 0x00f00093;  // addi x1, x0, 12
-    device_mem.at(0x4) = 0x00f00113;  // addi x2, x0, 15
-    device_mem.at(0x8) = 0x123081e7;  // beq x1, x2, 0x123
-    program_end = 0x08;
+    device_mem.at(0x0) = 0x00f00093;    // addi x1, x0, 12
+    device_mem.at(0x4) = 0x00f00113;    // addi x2, x0, 15
+    device_mem.at(0x8) = 0x12208063;    // beq x1, x2, 0x120
+    device_mem.at(0xc) = 0x00112923;    // sw x1, 0x12(x2)
+    device_mem.at(0x128) = 0x04500193;  // addi x3, x0, 69
+    device_mem.at(0x12c) = 0x42302023;  // sw x3, 0x420(x0)
+    device_mem.at(0x130) = 0x0;         // nop
+    device_mem.at(0x134) = 0x42002203;  // lw x4, 0x420(x0)
+    device_mem.at(0x138) = 0x001202b3;  // add x5, x4, x1
+    device_mem.at(0x13c) = 0x40502823;  // sw x5, 0x410(x0)
+    program_end = 0x13c;
 }
 
 int main(int argc, char* argv[]) {

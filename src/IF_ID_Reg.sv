@@ -28,14 +28,16 @@ module IF_ID_Reg (
             if_id_pc_p4 <= '0;
             if_id_instr <= '0;
         end else begin
-            if (if_id_flush) begin
-                if_id_pc <= '0;
-                if_id_pc_p4 <= '0;
-                if_id_instr <= '0;
-            end else if (~if_id_stall) begin
-                if_id_pc <= if_pc;
-                if_id_pc_p4 <= if_pc_p4;
-                if_id_instr <= if_instr;
+            if (~if_id_stall) begin
+                if (if_id_flush) begin
+                    if_id_pc <= '0;
+                    if_id_pc_p4 <= '0;
+                    if_id_instr <= '0;
+                end else begin
+                    if_id_pc <= if_pc;
+                    if_id_pc_p4 <= if_pc_p4;
+                    if_id_instr <= if_instr;
+                end
             end
         end
     end

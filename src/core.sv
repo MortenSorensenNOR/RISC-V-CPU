@@ -17,6 +17,7 @@ module core (
     input logic  [31:0] i_data_mem_read_data
 );
     // IF
+    logic if_stall;
     logic if_pc_next_src, if_pc_jump_target_src;
     logic [31:0] if_pc_pluss_imm, if_target_alu;
     logic [31:0] if_pc, if_pc_p4;
@@ -93,6 +94,8 @@ module core (
     if_stage if_stage_inst (
         .clk(clk),
         .rstn(rstn),
+
+        .if_stall(if_stall),
 
         // PC
         .PCNextSrc(if_pc_next_src),
@@ -354,6 +357,21 @@ module core (
         .ID_RD(wb_reg_write_rd)
     );
 
+    // ========== Hazards ==========
+    hazard_unit hazard_unit_inst (
+        .BranchExecuted(ex_pc_next_src),
+        .ex_rd(id_ex_rd),
+        .id_rs1(id_rs1),
+        .id_rs2(id_rs2),
+        .ex_reg_write_src(id_ex_reg_write_src),
+
+        .if_stall(if_stall),
+        .id_stall(if_id_stall),
+        .id_flush(if_id_flush),
+        .ex_flush(id_ex_flush)
+
+    );
+
     // EX-IF Signals
     assign if_pc_pluss_imm = id_ex_branch_target;
     assign if_target_alu   = ex_alu_result;
@@ -361,9 +379,5 @@ module core (
     // TODO: Make Hazard detection unit as well as implement branch
     assign if_pc_next_src = ex_pc_next_src;         // Decided by branch_unit
     assign if_pc_jump_target_src = id_ex_jump_src;  // Decided in ID
-
-    assign if_id_stall = '0;
-    assign if_id_flush = '0;
-    assign id_ex_flush = '0;
 
 endmodule
