@@ -156,7 +156,7 @@ module ex_stage (
 
     // ========== Branch logic ==========
     branch_unit branch_unit_inst (
-        .funct3(3),
+        .funct3(funct3),
         .Branch(branch),
         .Jump(jump),
 

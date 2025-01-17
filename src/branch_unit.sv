@@ -19,7 +19,9 @@ module branch_unit (
         if (Jump) begin
             // Jump instruction: always change PC
             PCNextSrc = 1'b1;
+            $display("Jumping");
         end else if (Branch) begin
+            $display("funct3: 0x%x", funct3);
             case (funct3)
                 3'h0: begin
                     // beq:     rd1 - rd2 = 0
@@ -55,6 +57,10 @@ module branch_unit (
                     PCNextSrc = 1'b0;
                 end
             endcase
+
+            if (PCNextSrc == 1'b1) begin
+                $display("Branching");
+            end
         end
     end
 
