@@ -2,21 +2,23 @@
 
 /* verilator lint_off UNUSED */
 module i_mem #(
+    parameter unsigned MEMORY_SIZE = 8196, // Bytes
     parameter string PROGRAM_PATH = "test/program.bin"
 ) (
     input logic [31:0] addr,
     output logic [31:0] instr
 );
 
-    localparam unsigned MemSize = 8196;
-    logic [31:0] mem[MemSize];
+    logic [7:0] mem[MEMORY_SIZE];
 
     initial begin
-        $readmemh(PROGRAM_PATH, mem);
+        if (PROGRAM_PATH != "") begin
+            $readmemh(PROGRAM_PATH, mem);
+        end
     end
 
-    logic [$clog2(MemSize)-1:0] w_memory_addr;
-    assign w_memory_addr = addr[$clog2(MemSize) + 1 : 2];
-    assign instr = mem[w_memory_addr];
+    always_comb begin
+        instr = {mem[addr+3], mem[addr+2], mem[addr+1], mem[addr]};
+    end
 
 endmodule

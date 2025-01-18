@@ -173,10 +173,4 @@ module ex_stage (
 
     assign MemWriteData = rd2_forwarded;
 
-    always_comb begin
-        if (PCNextSrc == 1'b1) begin
-           $display("Branching/jumping to 0x%04x or 0x%04x", branch_target, w_alu_do);
-        end
-    end
-
 endmodule

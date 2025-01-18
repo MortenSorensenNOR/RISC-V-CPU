@@ -413,11 +413,4 @@ module core (
     assign if_pc_next_src = ex_pc_next_src;         // Decided by branch_unit
     assign if_pc_jump_target_src = id_ex_jump_src;  // Decided in ID
 
-    // Debug
-    always_ff @(posedge clk) begin
-        if (rstn) begin
-            // $display("IF: 0x%04x, ID: 0x%04x, EX: 0x%04x, MEM: 0x%04x, WB: 0x%04x", if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc);
-        end
-    end
-
 endmodule
