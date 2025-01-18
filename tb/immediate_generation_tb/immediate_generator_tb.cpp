@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
     apply_test_instruction(dut, 0xb2fff0ef, -1234);         // J-type: JAL
     apply_test_instruction(dut, 0x4d2100e7, 1234);          // I-type: JALR
     apply_test_instruction(dut, 0x01234037, 0x1234 << 12);  // U-type: LUI
+    apply_test_instruction(dut, 0x00000097, 0);
 
     m_trace->close();
     delete dut;

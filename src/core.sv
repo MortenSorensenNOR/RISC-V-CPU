@@ -62,6 +62,9 @@ module core (
     logic [1:0] id_ex_reg_write_src;
     logic [31:0] id_ex_imm;
 
+    // debug
+    logic [31:0] id_ex_instr;
+
     // EX
     logic [31:0] ex_alu_result;
     logic ex_alu_zero;
@@ -71,6 +74,7 @@ module core (
     logic [31:0] ex_mem_write_data;
 
     // EX-Load/Store
+    logic [31:0] ex_mem_pc;
     logic [31:0] ex_mem_pc_p4;
     logic [4:0]  ex_mem_rd;
     logic [31:0] ex_mem_alu_result;  // Doubles as the address for MEM write
@@ -79,16 +83,23 @@ module core (
     logic ex_mem_reg_write;
     logic [1:0] ex_mem_reg_write_src;
 
+    // debug
+    logic [31:0] ex_mem_instr;
+
     // MEM
     logic [31:0] mem_read_data;
 
     // MEM-WB
+    logic [31:0] mem_wb_pc;
     logic [31:0] mem_wb_pc_p4;
     logic [4:0]  mem_wb_rd;
     logic [31:0] mem_wb_alu_result;
     logic [31:0] mem_wb_mem_read_data;
     logic mem_wb_reg_write;
     logic [1:0] mem_wb_reg_write_src;
+
+    // debug
+    logic [31:0] mem_wb_instr;
 
     // ========== INSTRUCTION FETCH STAGE ==========
     if_stage if_stage_inst (
@@ -137,8 +148,8 @@ module core (
         .rstn,
 
         // From IF
-        .if_instr(if_instr),
-        .if_pc(if_pc),
+        .if_instr(if_id_instr),
+        .if_pc(if_id_pc),
 
         // From WB
         .wb_reg_write(wb_reg_write),
@@ -213,6 +224,9 @@ module core (
 
         .id_imm(id_imm),
 
+        // debug
+        .id_instr(if_id_instr),
+
         // Output
         .id_ex_pc(id_ex_pc),
         .id_ex_pc_p4(id_ex_pc_p4),
@@ -242,7 +256,10 @@ module core (
         .id_ex_reg_write(id_ex_reg_write),
         .id_ex_reg_write_src(id_ex_reg_write_src),
 
-        .id_ex_imm(id_ex_imm)
+        .id_ex_imm(id_ex_imm),
+
+        // debug
+        .id_ex_instr(id_ex_instr)
     );
 
     // ========== EX STAGE ==========
@@ -287,6 +304,7 @@ module core (
         .clk(clk),
         .rstn(rstn),
 
+        .ex_pc(id_ex_pc),
         .ex_pc_p4(id_ex_pc_p4),
         .ex_rd(id_ex_rd),
         .ex_alu_result(ex_alu_result),
@@ -296,6 +314,10 @@ module core (
         .ex_reg_write(id_ex_reg_write),
         .ex_reg_write_src(id_ex_reg_write_src),
 
+        // debug
+        .ex_instr(id_ex_instr),
+
+        .ex_mem_pc(ex_mem_pc),
         .ex_mem_pc_p4(ex_mem_pc_p4),
         .ex_mem_rd(ex_mem_rd),
         .ex_mem_alu_result(ex_mem_alu_result),
@@ -303,7 +325,10 @@ module core (
         .ex_mem_mem_write(ex_mem_mem_write),
         .ex_mem_mem_write_data(ex_mem_mem_write_data),
         .ex_mem_reg_write(ex_mem_reg_write),
-        .ex_mem_reg_write_src(ex_mem_reg_write_src)
+        .ex_mem_reg_write_src(ex_mem_reg_write_src),
+
+        // debug
+        .ex_mem_instr(ex_mem_instr)
     );
 
     // ========== LOAD STORE STAGE ==========
@@ -327,6 +352,7 @@ module core (
         .clk(clk),
         .rstn(rstn),
 
+        .mem_pc(ex_mem_pc),
         .mem_pc_p4(ex_mem_pc_p4),
         .mem_rd(ex_mem_rd),
         .mem_alu_result(ex_mem_alu_result),
@@ -334,12 +360,19 @@ module core (
         .mem_reg_write(ex_mem_reg_write),
         .mem_reg_write_src(ex_mem_reg_write_src),
 
+        // debug
+        .mem_instr(ex_mem_instr),
+
+        .mem_wb_pc(mem_wb_pc),
         .mem_wb_pc_p4(mem_wb_pc_p4),
         .mem_wb_rd(mem_wb_rd),
         .mem_wb_alu_result(mem_wb_alu_result),
         .mem_wb_mem_read_data(mem_wb_mem_read_data),
         .mem_wb_reg_write(mem_wb_reg_write),
-        .mem_wb_reg_write_src(mem_wb_reg_write_src)
+        .mem_wb_reg_write_src(mem_wb_reg_write_src),
+
+        // debug
+        .mem_wb_instr(mem_wb_instr)
     );
 
     // ========== WB STAGE ==========
@@ -379,5 +412,12 @@ module core (
     // TODO: Make Hazard detection unit as well as implement branch
     assign if_pc_next_src = ex_pc_next_src;         // Decided by branch_unit
     assign if_pc_jump_target_src = id_ex_jump_src;  // Decided in ID
+
+    // Debug
+    always_ff @(posedge clk) begin
+        if (rstn) begin
+            // $display("IF: 0x%04x, ID: 0x%04x, EX: 0x%04x, MEM: 0x%04x, WB: 0x%04x", if_pc, if_id_pc, id_ex_pc, ex_mem_pc, mem_wb_pc);
+        end
+    end
 
 endmodule

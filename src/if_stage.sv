@@ -27,14 +27,8 @@ module if_stage #(
 );
 
     logic [31:0] PC;
-    logic reset_last = 1'b0;    // Ensure that we do not increment
-                                // before one clock after a reset
-
-    // PC + 4
     logic [31:0] pc_p4;
-    always_comb begin
-        pc_p4 = PC + 32'd4;
-    end
+    logic reset_last = 1'b0;
 
     // PC Next Logic
     logic [31:0] w_pc_next;
@@ -58,10 +52,15 @@ module if_stage #(
         end else begin
             reset_last <= 1'b0;
 
-            if (~reset_last && ~if_stall) begin
+            if (~if_stall && ~reset_last) begin
                 PC <= w_pc_next;
             end
         end
+    end
+
+    // PC + 4
+    always_comb begin
+        pc_p4 = PC + 32'd4;
     end
 
     // PC

@@ -1,5 +1,5 @@
 SRC_DIR = ../../src
-MODULE=core
+MODULE=top
 
 IMPORTS=\
 	$(SRC_DIR)/if_stage.sv \
@@ -18,7 +18,9 @@ IMPORTS=\
 	$(SRC_DIR)/load_store_stage.sv \
 	$(SRC_DIR)/MEM_WB_Reg.sv \
 	$(SRC_DIR)/wb_stage.sv \
-	$(SRC_DIR)/hazard_unit.sv
+	$(SRC_DIR)/hazard_unit.sv \
+	$(SRC_DIR)/i_mem.sv \
+	$(SRC_DIR)/core.sv
 
 .PHONY:sim
 sim: waveform.vcd
@@ -35,7 +37,7 @@ waves: waveform.vcd
 	@echo "### WAVES ###"
 	gtkwave waveform.vcd
 
-waveform.vcd: ./obj_dir/V$(MODULE)
+waveform.vcd: ./obj_dir/V$(MODULE) test/program.bin
 	@echo
 	@echo "### SIMULATING ###"
 	@./obj_dir/V$(MODULE) +verilator+rand+reset+2
@@ -45,7 +47,7 @@ waveform.vcd: ./obj_dir/V$(MODULE)
 	@echo "### BUILDING SIM ###"
 	make -C obj_dir -f V$(MODULE).mk V$(MODULE)
 
-.stamp.verilate: $(SRC_DIR)/$(MODULE).sv $(IMPORTS) $(MODULE)_tb.cpp
+.stamp.verilate: $(SRC_DIR)/$(MODULE).sv $(IMPORTS) $(MODULE)_tb.cpp test/program.bin
 	@echo
 	@echo "### VERILATING ###"
 	verilator -Wall --trace --x-assign unique --x-initial unique \

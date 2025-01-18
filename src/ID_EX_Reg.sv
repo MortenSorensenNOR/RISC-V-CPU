@@ -38,6 +38,9 @@ module ID_EX_Reg (
 
     input logic [31:0] id_imm,
 
+    // Debug
+    input logic [31:0] id_instr,
+
     // Output
     output logic [31:0] id_ex_pc,
     output logic [31:0] id_ex_pc_p4,
@@ -67,7 +70,10 @@ module ID_EX_Reg (
     output logic id_ex_reg_write,
     output logic [1:0] id_ex_reg_write_src,
 
-    output logic [31:0] id_ex_imm
+    output logic [31:0] id_ex_imm,
+
+    // Debug
+    output logic [31:0] id_ex_instr
 );
 
     initial begin
@@ -100,6 +106,9 @@ module ID_EX_Reg (
         id_ex_reg_write_src = '0;
 
         id_ex_imm = '0;
+
+        // Debug
+        id_ex_instr = '0;
     end
 
     always_ff @(posedge clk) begin
@@ -133,6 +142,9 @@ module ID_EX_Reg (
             id_ex_reg_write_src <= '0;
 
             id_ex_imm <= '0;
+
+            // Debug
+            id_ex_instr <= '0;
         end else begin
             if (id_ex_flush) begin
                 id_ex_pc <= '0;
@@ -164,6 +176,9 @@ module ID_EX_Reg (
                 id_ex_reg_write_src <= '0;
 
                 id_ex_imm <= '0;
+
+                // Debug
+                id_ex_instr <= '0;
             end else begin
                 id_ex_pc <= id_pc;
                 id_ex_pc_p4 <= id_pc_p4;
@@ -194,6 +209,9 @@ module ID_EX_Reg (
                 id_ex_reg_write_src <= id_reg_write_src;
 
                 id_ex_imm <= id_imm;
+
+                // Debug
+                id_ex_instr <= id_instr;
             end
         end
     end

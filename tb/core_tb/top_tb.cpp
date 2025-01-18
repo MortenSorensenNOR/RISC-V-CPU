@@ -2,40 +2,57 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <vector>
 #include <error.h>
 
 #include <verilated.h>
 #include <verilated_vcd_c.h>
-#include "obj_dir/Vcore.h"
+#include "obj_dir/Vtop.h"
 
 #define MAX_SIM_TIME 128
 #define RESET_CLKS 8
-#define DEVICE_MEMORY_SIZE 8192 // Bytes
+#define DEVICE_MEMORY_SIZE 8192 // * 4 Bytes
 
 vluint64_t sim_time = 0;
 vluint64_t posedge_cnt = 0;
-std::vector<uint32_t> device_mem(DEVICE_MEMORY_SIZE / 4, 0);
+
+std::vector<uint32_t> device_mem(DEVICE_MEMORY_SIZE, 0);
 int32_t program_end;
 
-void reset_device_memory() {
+void initialize_program_memory(const std::string& fpath) {
     // Insert program
-    device_mem.at(0x0) = 0x00f00093;    // addi x1, x0, 12
-    device_mem.at(0x4) = 0x00f00113;    // addi x2, x0, 15
-    device_mem.at(0x8) = 0x12208063;    // beq x1, x2, 0x120
-    device_mem.at(0xc) = 0x00112923;    // sw x1, 0x12(x2)
-    device_mem.at(0x128) = 0x04500193;  // addi x3, x0, 69
-    device_mem.at(0x12c) = 0x42302023;  // sw x3, 0x420(x0)
-    device_mem.at(0x130) = 0x0;         // nop
-    device_mem.at(0x134) = 0x42002203;  // lw x4, 0x420(x0)
-    device_mem.at(0x138) = 0x001202b3;  // add x5, x4, x1
-    device_mem.at(0x13c) = 0x40502823;  // sw x5, 0x410(x0)
-    program_end = 0x13c;
+    program_end = 0x0;
+
+    std::ifstream file(fpath);
+    if (!file.is_open()) {
+        std::cerr << "Error: Unable to open file: " << fpath << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        uint32_t value;
+
+        // Convert the hex string to a uint32_t
+        if (iss >> std::hex >> value) {
+            device_mem.at(program_end) = value; // Add to the vector here
+            program_end += 0x4;
+        } else {
+            std::cerr << "Warning: Skipping invalid line: " << line << std::endl;
+        }
+    }
+
+    program_end = program_end - 0x4;
+    printf("program_end: 0x%x\n", program_end);
+    file.close();
 }
 
 int main(int argc, char* argv[]) {
     Verilated::commandArgs(argc, argv);
-    Vcore* dut = new Vcore;
+    Vtop* dut = new Vtop;
 
     Verilated::traceEverOn(true);
     VerilatedVcdC* m_trace = new VerilatedVcdC;
@@ -43,17 +60,14 @@ int main(int argc, char* argv[]) {
     m_trace->open("waveform.vcd");
 
     // Apply reset
-    reset_device_memory();
+    initialize_program_memory("test/program.bin");
 
     dut->clk = 1;
     dut->rstn = 0;
     for (int i = 0; i < RESET_CLKS; i++) {
         dut->clk ^= 1;
         dut->eval();
-
-        dut->i_instr_mem_read_data = 0;
         dut->i_data_mem_read_data  = 0;
-
         m_trace->dump(sim_time);
         sim_time++;
     }
@@ -65,29 +79,30 @@ int main(int argc, char* argv[]) {
         dut->clk ^= 1;
         dut->eval();
 
+        // printf("\n");
         if (dut->clk == 1) {
             posedge_cnt++;
 
-            // Assign instruction
-            dut->i_instr_mem_read_data = device_mem.at(dut->o_instr_mem_read_addr);
-            printf("INSTR: Read (0x%08x):\t0x%08x\t\t", dut->o_instr_mem_read_addr, device_mem.at(dut->o_instr_mem_read_addr));
+            vluint32_t PC = dut->top__DOT__core_inst__DOT__if_stage_inst__DOT__PC;
+            printf("INSTR: Read  (0x%04x)\t\t", PC);
 
             // MEM
             if (dut->o_data_mem_write_en) {
                 device_mem.at(dut->o_data_mem_addr) = dut->o_data_mem_write_data;
-                printf("DATA: Write (0x%08x):\t0x%08x\t\t", dut->o_data_mem_addr, dut->o_data_mem_write_data);
+                printf("DATA:  Write (0x%04x):\t0x%04x\t\t", dut->o_data_mem_addr, dut->o_data_mem_write_data);
             }
 
             if (dut->o_data_mem_read_en) {
                 dut->i_data_mem_read_data = device_mem.at(dut->o_data_mem_addr);
-                printf("DATA: Read  (0x%08x):\t0x%08x\t\t", dut->o_data_mem_addr, device_mem.at(dut->o_data_mem_addr));
+                printf("DATA:  Read  (0x%04x):\t0x%04x\t\t", dut->o_data_mem_addr, device_mem.at(dut->o_data_mem_addr));
             }
             printf("\n");
 
-            if (dut->o_instr_mem_read_addr == program_end) {
+
+            if (PC == program_end) {
                 finished_clock = posedge_cnt + 4;
             }
-
+            
             if (posedge_cnt == finished_clock) {
                 break;
             }
@@ -106,3 +121,4 @@ int main(int argc, char* argv[]) {
     delete dut;
     exit(EXIT_SUCCESS);
 }
+
