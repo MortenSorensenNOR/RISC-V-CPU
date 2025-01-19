@@ -14,6 +14,7 @@ module core (
     output logic [31:0] o_data_mem_write_data,
     output logic o_data_mem_read_en,
     output logic o_data_mem_write_en,
+    output logic [1:0] o_data_mem_data_mask,
     input logic  [31:0] i_data_mem_read_data
 );
     // IF
@@ -41,6 +42,7 @@ module core (
     logic [1:0] id_alu_op, id_alu_src_b;
     logic [0:0] id_alu_src_a;
     logic id_mem_write, id_mem_read;
+    logic [1:0] id_mem_data_mask;
     logic id_reg_write;
     logic [1:0] id_reg_write_src;
     logic [31:0] id_imm, id_branch_target;
@@ -58,6 +60,7 @@ module core (
     logic [0:0] id_ex_alu_src_a;
     logic [1:0] id_ex_alu_src_b;
     logic id_ex_mem_write, id_ex_mem_read;
+    logic [1:0] id_ex_mem_data_mask;
     logic id_ex_reg_write;
     logic [1:0] id_ex_reg_write_src;
     logic [31:0] id_ex_imm;
@@ -79,6 +82,7 @@ module core (
     logic [4:0]  ex_mem_rd;
     logic [31:0] ex_mem_alu_result;  // Doubles as the address for MEM write
     logic ex_mem_mem_write, ex_mem_mem_read;
+    logic [1:0] ex_mem_mem_data_mask;
     logic [31:0] ex_mem_mem_write_data;
     logic ex_mem_reg_write;
     logic [1:0] ex_mem_reg_write_src;
@@ -177,6 +181,7 @@ module core (
 
         .id_mem_write(id_mem_write),
         .id_mem_read(id_mem_read),
+        .id_mem_data_mask(id_mem_data_mask),
 
         .id_reg_write(id_reg_write),
         .id_reg_write_src(id_reg_write_src),
@@ -218,6 +223,7 @@ module core (
 
         .id_mem_write(id_mem_write),
         .id_mem_read(id_mem_read),
+        .id_mem_data_mask(id_mem_data_mask),
 
         .id_reg_write(id_reg_write),
         .id_reg_write_src(id_reg_write_src),
@@ -252,6 +258,7 @@ module core (
 
         .id_ex_mem_write(id_ex_mem_write),
         .id_ex_mem_read(id_ex_mem_read),
+        .id_ex_mem_data_mask(id_ex_mem_data_mask),
 
         .id_ex_reg_write(id_ex_reg_write),
         .id_ex_reg_write_src(id_ex_reg_write_src),
@@ -310,6 +317,7 @@ module core (
         .ex_alu_result(ex_alu_result),
         .ex_mem_read(id_ex_mem_read),
         .ex_mem_write(id_ex_mem_write),
+        .ex_mem_data_mask(id_ex_mem_data_mask),
         .ex_mem_write_data(ex_mem_write_data),
         .ex_reg_write(id_ex_reg_write),
         .ex_reg_write_src(id_ex_reg_write_src),
@@ -323,6 +331,7 @@ module core (
         .ex_mem_alu_result(ex_mem_alu_result),
         .ex_mem_mem_read(ex_mem_mem_read),
         .ex_mem_mem_write(ex_mem_mem_write),
+        .ex_mem_mem_data_mask(ex_mem_mem_data_mask),
         .ex_mem_mem_write_data(ex_mem_mem_write_data),
         .ex_mem_reg_write(ex_mem_reg_write),
         .ex_mem_reg_write_src(ex_mem_reg_write_src),
@@ -337,6 +346,7 @@ module core (
         .WriteData(ex_mem_mem_write_data),
         .WriteEnable(ex_mem_mem_write),
         .ReadEnable(ex_mem_mem_read),
+        .DataMask(ex_mem_mem_data_mask),
         .ReadData(mem_read_data),
 
         // External signals
@@ -344,6 +354,7 @@ module core (
         .o_data_mem_write_data(o_data_mem_write_data),
         .o_data_mem_read_en(o_data_mem_read_en),
         .o_data_mem_write_en(o_data_mem_write_en),
+        .o_data_mem_data_mask(o_data_mem_data_mask),
         .i_data_mem_read_data(i_data_mem_read_data)
     );
 

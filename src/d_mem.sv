@@ -20,6 +20,10 @@ module d_mem #(
     initial begin
         if (DATA_FILE_PATH != "") begin
             $readmemh(DATA_FILE_PATH, mem);
+        end else begin
+            for (int i = 0; i < MEMORY_SIZE; i++) begin
+                mem[i] = '0;
+            end
         end
     end
 

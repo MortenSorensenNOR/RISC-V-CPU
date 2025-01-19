@@ -32,6 +32,7 @@ module ID_EX_Reg (
 
     input logic id_mem_write,
     input logic id_mem_read,
+    input logic [1:0] id_mem_data_mask,
 
     input logic id_reg_write,
     input logic [1:0] id_reg_write_src,
@@ -66,6 +67,7 @@ module ID_EX_Reg (
 
     output logic id_ex_mem_write,
     output logic id_ex_mem_read,
+    output logic [1:0] id_ex_mem_data_mask,
 
     output logic id_ex_reg_write,
     output logic [1:0] id_ex_reg_write_src,
@@ -101,6 +103,7 @@ module ID_EX_Reg (
 
         id_ex_mem_write = '0;
         id_ex_mem_read = '0;
+        id_ex_mem_data_mask = '0;
 
         id_ex_reg_write = '0;
         id_ex_reg_write_src = '0;
@@ -137,6 +140,7 @@ module ID_EX_Reg (
 
             id_ex_mem_write <= '0;
             id_ex_mem_read <= '0;
+            id_ex_mem_data_mask <= '0;
 
             id_ex_reg_write <= '0;
             id_ex_reg_write_src <= '0;
@@ -171,6 +175,7 @@ module ID_EX_Reg (
 
                 id_ex_mem_write <= '0;
                 id_ex_mem_read <= '0;
+                id_ex_mem_data_mask <= '0;
 
                 id_ex_reg_write <= '0;
                 id_ex_reg_write_src <= '0;
@@ -204,6 +209,7 @@ module ID_EX_Reg (
 
                 id_ex_mem_write <= id_mem_write;
                 id_ex_mem_read <= id_mem_read;
+                id_ex_mem_data_mask <= id_mem_data_mask;
 
                 id_ex_reg_write <= id_reg_write;
                 id_ex_reg_write_src <= id_reg_write_src;

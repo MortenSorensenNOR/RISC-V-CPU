@@ -5,6 +5,7 @@ module load_store_stage (
     input logic [31:0] WriteData,
     input logic WriteEnable,
     input logic ReadEnable,
+    input logic [1:0] DataMask,
     output logic [31:0] ReadData,
 
     // External signals
@@ -12,6 +13,7 @@ module load_store_stage (
     output logic [31:0] o_data_mem_write_data,
     output logic o_data_mem_read_en,
     output logic o_data_mem_write_en,
+    output logic [1:0] o_data_mem_data_mask,
     input logic  [31:0] i_data_mem_read_data
 );
 
@@ -23,6 +25,7 @@ module load_store_stage (
     assign o_data_mem_write_data = WriteData;
     assign o_data_mem_read_en = ReadEnable;
     assign o_data_mem_write_en = WriteEnable;
+    assign o_data_mem_data_mask = DataMask;
     assign ReadData = i_data_mem_read_data;
 
 endmodule

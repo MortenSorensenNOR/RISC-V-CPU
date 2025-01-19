@@ -23,6 +23,7 @@ module controller (
     // MEM
     output logic MemWrite,
     output logic MemRead,
+    output logic [1:0] MemDataMask, // 01: byte, 10: half word, 11: word
 
     // WB
     output logic RegWrite,
@@ -60,6 +61,7 @@ module controller (
 
         MemRead  = 1'b0;
         MemWrite = 1'b0;
+        MemDataMask = 2'b11;
         RegWrite = 1'b0;
         RegWriteSrc = 2'b00;
 
@@ -86,6 +88,26 @@ module controller (
                 // Load
                 MemRead = 1'b1; // Might remove, is usefull for real system
                 RegWrite = 1'b1;
+
+                // Load mask
+                case (funct3)
+                    3'h0, 3'h4: begin
+                        MemDataMask = 2'b01;
+                    end
+
+                    3'h1, 3'h5: begin
+                        MemDataMask = 2'b10;
+                    end
+
+                    3'h2: begin
+                        MemDataMask = 2'b11;
+                    end
+
+                    default: begin
+                        MemDataMask = 2'b11;
+                    end
+                endcase
+
                 RegWriteSrc = 2'b01;
                 alu_op = LOAD_STORE_OP;
                 alu_src_a = 1'b0;
@@ -95,6 +117,26 @@ module controller (
             7'b0100011: begin
                 // Store
                 MemWrite = 1'b1;
+
+                // Load mask
+                case (funct3)
+                    3'h0, 3'h4: begin
+                        MemDataMask = 2'b01;
+                    end
+
+                    3'h1, 3'h5: begin
+                        MemDataMask = 2'b10;
+                    end
+
+                    3'h2: begin
+                        MemDataMask = 2'b11;
+                    end
+
+                    default: begin
+                        MemDataMask = 2'b11;
+                    end
+                endcase
+
                 alu_op = LOAD_STORE_OP;
                 alu_src_a = 1'b0;
                 alu_src_b = 2'b01;

@@ -27,7 +27,7 @@ module top (
     // Data Memory
     logic [31:0] data_mem_addr;
     logic [31:0] data_mem_write_data;
-    logic [1:0]  data_mem_data_mask = 2'b11;
+    logic [1:0]  data_mem_data_mask;
     logic data_mem_write_en;
     logic data_mem_read_en;
     logic [31:0] data_mem_read_data;
@@ -57,6 +57,7 @@ module top (
         .o_data_mem_write_data(data_mem_write_data),
         .o_data_mem_write_en(data_mem_write_en),
         .o_data_mem_read_en(data_mem_read_en),
+        .o_data_mem_data_mask(data_mem_data_mask),
         .i_data_mem_read_data(data_mem_read_data)
     );
 
