@@ -301,7 +301,7 @@ module core (
         .AluOvf(ex_alu_ovf),
         .AluSign(ex_alu_sign),
 
-        .PCNextSrc(ex_pc_next_src),
+        .BranchDecision(ex_pc_next_src),
 
         .MemWriteData(ex_mem_write_data)
     );

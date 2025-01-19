@@ -31,19 +31,27 @@ module ex_stage (
     output logic AluOvf,
     output logic AluSign,
 
-    output logic PCNextSrc,
+    output logic BranchDecision,
 
     output logic [31:0] MemWriteData
 );
+    typedef enum logic [1:0] {
+        LOAD_STORE_OP,
+        BRANCHING_OP,
+        ARITHMETIC_OP,
+        ARITHMETIC_OP_IMMEDIATE
+    } alu_op_decode_t;
 
     // ========== ALU Controller ==========
     logic [3:0] alu_ctrl;
+    logic [2:0] cmp_ctrl;
 
     alu_controller alu_controller_inst (
         .alu_op(alu_op),
         .funct7(funct7),
         .funct3(funct3),
-        .alu_ctrl(alu_ctrl)
+        .alu_ctrl(alu_ctrl),
+        .cmp_ctrl(cmp_ctrl)
     );
 
     // ========== ALU Controller ==========
@@ -69,17 +77,9 @@ module ex_stage (
 
     always_comb begin
         case (forward_alu_a)
-            2'b00: begin
-                rd1_forwarded = rd1;
-            end
-
-            2'b01: begin
-                rd1_forwarded = wb_forward_value;
-            end
-
-            2'b10: begin
-                rd1_forwarded = mem_forward_value;
-            end
+            2'b00: rd1_forwarded = rd1;
+            2'b01: rd1_forwarded = wb_forward_value;
+            2'b10: rd1_forwarded = mem_forward_value;
 
             default: begin
                 rd1_forwarded = '0;
@@ -87,9 +87,7 @@ module ex_stage (
         endcase
 
         case (alu_src_a)
-            1'b0: begin
-                A = rd1_forwarded;
-            end
+            1'b0: A = rd1_forwarded;
 
             default: begin
                 A = '0;
@@ -103,17 +101,9 @@ module ex_stage (
 
     always_comb begin
         case (forward_alu_b)
-            2'b00: begin
-                rd2_forwarded = rd2;
-            end
-
-            2'b01: begin
-                rd2_forwarded = wb_forward_value;
-            end
-
-            2'b10: begin
-                rd2_forwarded = mem_forward_value;
-            end
+            2'b00: rd2_forwarded = rd2;
+            2'b01: rd2_forwarded = wb_forward_value;
+            2'b10: rd2_forwarded = mem_forward_value;
 
             default: begin
                 rd2_forwarded = '0;
@@ -121,17 +111,9 @@ module ex_stage (
         endcase
 
         case (alu_src_b)
-            2'b00: begin
-                B = rd2_forwarded;
-            end
-
-            2'b01: begin
-                B = imm;
-            end
-
-            2'b10: begin
-                B = branch_target;
-            end
+            2'b00: B = rd2_forwarded;
+            2'b01: B = imm;
+            2'b10: B = branch_target;
 
             default: begin
                 B = '0;
@@ -142,31 +124,47 @@ module ex_stage (
     // ========== ALU ==========
     logic [31:0] w_alu_do;
     logic w_alu_zero, w_alu_ovf;
+    logic w_alu_cmp_result;
 
     alu alu_inst (
         .alu_ctrl(alu_ctrl),
+        .cmp_ctrl(cmp_ctrl),
 
         .A(A),
         .B(B),
         .alu_do(w_alu_do),
+        .cmp_result(w_alu_cmp_result),
 
         .zero(w_alu_zero),
         .ovf(w_alu_ovf)
     );
 
     // ========== Branch logic ==========
-    branch_unit branch_unit_inst (
-        .funct3(funct3),
-        .Branch(branch),
-        .Jump(jump),
+    assign BranchDecision = jump | (branch & w_alu_cmp_result);
 
-        .AluZero(w_alu_zero),
-        .AluSign(w_alu_do[31]),
+    // ========== Output Mux ==========
+    always_comb begin
+        case (alu_op)
+            ARITHMETIC_OP, ARITHMETIC_OP_IMMEDIATE: begin
+                case (funct3)
+                    3'h2, 3'h3: begin
+                        // slt, sltu, slti, sltiu
+                        AluResult = {31'b0, w_alu_cmp_result};
+                    end
 
-        .PCNextSrc(PCNextSrc)
-    );
+                    default: begin
+                        AluResult = w_alu_do;
+                    end
+                endcase
+            end
 
+            default: begin
+                AluResult = w_alu_do;
+            end
+        endcase
+    end
     assign AluResult = w_alu_do;
+
     assign AluZero = w_alu_zero;
     assign AluOvf = w_alu_ovf;
     assign AluSign = w_alu_do[31];

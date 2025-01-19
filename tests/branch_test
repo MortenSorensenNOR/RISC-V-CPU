@@ -1,0 +1,23 @@
+    0:        0140006f        jal x0 20 <main>
+
+00000004 <test>:
+    4:        800002b7        lui x5 0x80000
+    8:        05900513        addi x10 x0 89
+    c:        00a28023        sb x10 0 x5
+    10:        0240006f        jal x0 36 <success>
+
+00000014 <main>:
+    14:        ff000437        lui x8 0xff000
+    18:        00c00493        addi x9 x0 12
+    1c:        00943933        sltu x18 x8 x9
+    20:        fe0902e3        beq x18 x0 -28 <test>
+    24:        800002b7        lui x5 0x80000
+    28:        04600513        addi x10 x0 70
+    2c:        00a28023        sb x10 0 x5
+
+00000030 <fail>:
+    30:        0000006f        jal x0 0 <fail>
+
+00000034 <success>:
+    34:        0000006f        jal x0 0 <success>
+

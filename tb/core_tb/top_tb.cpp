@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
 
             // Basic I/O
             if (dut->io_write_en && dut->io_write_addr == UART_BASE_ADDR) {
-                printf("%04x\n", dut->io_write_data);
+                printf("%c\n", dut->io_write_data & 0xff);
             }
         }
 

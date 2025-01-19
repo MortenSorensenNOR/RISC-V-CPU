@@ -2,15 +2,18 @@
 
 module alu (
     input  logic [3:0] alu_ctrl,
+    input  logic [2:0] cmp_ctrl,
 
     input  logic [31:0] A,
     input  logic [31:0] B,
     output logic [31:0] alu_do,
+    output logic cmp_result,
 
     output logic zero,
     output logic ovf
 );
 
+    // ========== ARITHMETIC ==========
     // alu_ctrl encoding
     typedef enum logic [3:0] {
         ADD,
@@ -91,4 +94,43 @@ module alu (
     end
 
     assign zero = (alu_do == 0);
+
+    // ========== COMPARISON ==========
+    typedef enum logic [2:0] {
+        eq,
+        neq,
+        lt,
+        ge,
+        ltu,
+        geu
+    } cmp_ctrl_type_t;
+
+    logic cmp_is_equal;
+    logic cmp_is_less_sign;
+    logic cmp_is_less_unsign;
+
+    always_comb begin
+        cmp_is_equal       = (A == B);
+        cmp_is_less_sign   = $signed(A) < $signed(B);
+        cmp_is_less_unsign = $unsigned(A) < $unsigned(B);
+    end
+
+    // Determine cmp_result
+    always_comb begin
+        cmp_result = 1'b0;
+
+        case (cmp_ctrl)
+            eq:  cmp_result =  cmp_is_equal;
+            neq: cmp_result = ~cmp_is_equal;
+            lt:  cmp_result =  cmp_is_less_sign;
+            ge:  cmp_result = ~cmp_is_less_sign;
+            ltu: cmp_result =  cmp_is_less_unsign;
+            geu: cmp_result = ~cmp_is_less_unsign;
+
+            default: begin
+                cmp_result = 1'b0;
+            end
+        endcase
+    end
+
 endmodule
