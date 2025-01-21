@@ -35,6 +35,7 @@ module id_stage (
     output logic id_mem_write,
     output logic id_mem_read,
     output logic [1:0] id_mem_data_mask, // 01: byte, 10: half word, 11: word
+    output logic id_mem_read_sign_extend,
 
     output logic id_reg_write,
     output logic [1:0] id_reg_write_src,
@@ -109,6 +110,7 @@ module id_stage (
         .MemWrite(w_id_mem_write),
         .MemRead(w_id_mem_read),
         .MemDataMask(id_mem_data_mask),
+        .MemReadSignExtend(id_mem_read_sign_extend),
 
         .RegWrite(w_id_reg_write),
         .RegWriteSrc(w_id_reg_write_src)

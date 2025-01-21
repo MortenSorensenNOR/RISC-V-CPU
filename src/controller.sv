@@ -24,6 +24,7 @@ module controller (
     output logic MemWrite,
     output logic MemRead,
     output logic [1:0] MemDataMask, // 01: byte, 10: half word, 11: word
+    output logic MemReadSignExtend,
 
     // WB
     output logic RegWrite,
@@ -88,15 +89,26 @@ module controller (
                 // Load
                 MemRead = 1'b1; // Might remove, is usefull for real system
                 RegWrite = 1'b1;
+                MemReadSignExtend = 1'b1;
 
                 // Load mask
                 case (funct3)
-                    3'h0, 3'h4: begin
+                    3'h0: begin
                         MemDataMask = 2'b01;
                     end
 
-                    3'h1, 3'h5: begin
+                    3'h4: begin
+                        MemDataMask = 2'b01;
+                        MemReadSignExtend = 1'b0;
+                    end
+
+                    3'h1: begin
                         MemDataMask = 2'b10;
+                    end
+
+                    3'h5: begin
+                        MemDataMask = 2'b10;
+                        MemReadSignExtend = 1'b0;
                     end
 
                     3'h2: begin

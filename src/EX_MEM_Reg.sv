@@ -15,6 +15,7 @@ module EX_MEM_Reg (
     input logic ex_mem_write,
     input logic [1:0] ex_mem_data_mask,
     input logic [31:0] ex_mem_write_data,
+    input logic ex_mem_read_sign_extend,
 
     input logic ex_reg_write,
     input logic [1:0] ex_reg_write_src,
@@ -32,6 +33,7 @@ module EX_MEM_Reg (
     output logic ex_mem_mem_read,
     output logic ex_mem_mem_write,
     output logic [1:0] ex_mem_mem_data_mask,
+    output logic ex_mem_mem_read_sign_extend,
     output logic [31:0] ex_mem_mem_write_data,
 
     output logic ex_mem_reg_write,
@@ -51,6 +53,7 @@ module EX_MEM_Reg (
         ex_mem_mem_read = '0;
         ex_mem_mem_write = '0;
         ex_mem_mem_data_mask = '0;
+        ex_mem_mem_read_sign_extend = '0;
         ex_mem_mem_write_data = '0;
 
         ex_mem_reg_write = '0;
@@ -71,6 +74,7 @@ module EX_MEM_Reg (
             ex_mem_mem_read <= '0;
             ex_mem_mem_write <= '0;
             ex_mem_mem_data_mask <= '0;
+            ex_mem_mem_read_sign_extend <= '0;
             ex_mem_mem_write_data <= '0;
 
             ex_mem_reg_write <= '0;
@@ -88,6 +92,7 @@ module EX_MEM_Reg (
             ex_mem_mem_read <= ex_mem_read;
             ex_mem_mem_write <= ex_mem_write;
             ex_mem_mem_data_mask <= ex_mem_data_mask;
+            ex_mem_mem_read_sign_extend <= ex_mem_read_sign_extend;
             ex_mem_mem_write_data <= ex_mem_write_data;
 
             ex_mem_reg_write <= ex_reg_write;

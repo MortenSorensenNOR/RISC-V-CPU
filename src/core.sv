@@ -43,6 +43,7 @@ module core (
     logic [0:0] id_alu_src_a;
     logic id_mem_write, id_mem_read;
     logic [1:0] id_mem_data_mask;
+    logic id_mem_read_sign_extend;
     logic id_reg_write;
     logic [1:0] id_reg_write_src;
     logic [31:0] id_imm, id_branch_target;
@@ -61,6 +62,7 @@ module core (
     logic [1:0] id_ex_alu_src_b;
     logic id_ex_mem_write, id_ex_mem_read;
     logic [1:0] id_ex_mem_data_mask;
+    logic id_ex_mem_read_sign_extend;
     logic id_ex_reg_write;
     logic [1:0] id_ex_reg_write_src;
     logic [31:0] id_ex_imm;
@@ -83,6 +85,7 @@ module core (
     logic [31:0] ex_mem_alu_result;  // Doubles as the address for MEM write
     logic ex_mem_mem_write, ex_mem_mem_read;
     logic [1:0] ex_mem_mem_data_mask;
+    logic ex_mem_mem_read_sign_extend;
     logic [31:0] ex_mem_mem_write_data;
     logic ex_mem_reg_write;
     logic [1:0] ex_mem_reg_write_src;
@@ -182,6 +185,7 @@ module core (
         .id_mem_write(id_mem_write),
         .id_mem_read(id_mem_read),
         .id_mem_data_mask(id_mem_data_mask),
+        .id_mem_read_sign_extend(id_mem_read_sign_extend),
 
         .id_reg_write(id_reg_write),
         .id_reg_write_src(id_reg_write_src),
@@ -224,6 +228,7 @@ module core (
         .id_mem_write(id_mem_write),
         .id_mem_read(id_mem_read),
         .id_mem_data_mask(id_mem_data_mask),
+        .id_mem_read_sign_extend(id_mem_read_sign_extend),
 
         .id_reg_write(id_reg_write),
         .id_reg_write_src(id_reg_write_src),
@@ -259,6 +264,7 @@ module core (
         .id_ex_mem_write(id_ex_mem_write),
         .id_ex_mem_read(id_ex_mem_read),
         .id_ex_mem_data_mask(id_ex_mem_data_mask),
+        .id_ex_mem_read_sign_extend(id_ex_mem_read_sign_extend),
 
         .id_ex_reg_write(id_ex_reg_write),
         .id_ex_reg_write_src(id_ex_reg_write_src),
@@ -318,6 +324,7 @@ module core (
         .ex_mem_read(id_ex_mem_read),
         .ex_mem_write(id_ex_mem_write),
         .ex_mem_data_mask(id_ex_mem_data_mask),
+        .ex_mem_read_sign_extend(id_ex_mem_read_sign_extend),
         .ex_mem_write_data(ex_mem_write_data),
         .ex_reg_write(id_ex_reg_write),
         .ex_reg_write_src(id_ex_reg_write_src),
@@ -332,6 +339,7 @@ module core (
         .ex_mem_mem_read(ex_mem_mem_read),
         .ex_mem_mem_write(ex_mem_mem_write),
         .ex_mem_mem_data_mask(ex_mem_mem_data_mask),
+        .ex_mem_mem_read_sign_extend(ex_mem_mem_read_sign_extend),
         .ex_mem_mem_write_data(ex_mem_mem_write_data),
         .ex_mem_reg_write(ex_mem_reg_write),
         .ex_mem_reg_write_src(ex_mem_reg_write_src),
@@ -347,6 +355,7 @@ module core (
         .WriteEnable(ex_mem_mem_write),
         .ReadEnable(ex_mem_mem_read),
         .DataMask(ex_mem_mem_data_mask),
+        .SignExtend(ex_mem_mem_read_sign_extend),
         .ReadData(mem_read_data),
 
         // External signals
