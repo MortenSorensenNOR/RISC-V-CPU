@@ -39,6 +39,11 @@ int main(int argc, char* argv[]) {
     }
     dut->rstn = 1;
 
+    // Set program memory
+    dut->mem_loader_write_en = 1;
+    
+    dut->mem_loader_write_en = 0;
+
     // Simulation
     vluint64_t finished_clock = -1;
     while (sim_time < MAX_SIM_TIME) {
@@ -50,11 +55,6 @@ int main(int argc, char* argv[]) {
             posedge_cnt++;
 
             vluint32_t PC = dut->top__DOT__core_inst__DOT__if_stage_inst__DOT__PC;
-
-            // Basic I/O
-            if (dut->io_write_en && dut->io_write_addr == UART_BASE_ADDR) {
-                printf("%08x\n", dut->io_write_data);
-            }
         }
 
         m_trace->dump(sim_time);

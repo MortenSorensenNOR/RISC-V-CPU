@@ -20,7 +20,9 @@ IMPORTS=\
 	$(SRC_DIR)/hazard_unit.sv \
 	$(SRC_DIR)/i_mem.sv \
 	$(SRC_DIR)/d_mem.sv \
-	$(SRC_DIR)/core.sv
+	$(SRC_DIR)/core.sv \
+	$(SRC_DIR)/spi_slave.sv \
+	$(SRC_DIR)/spi_program_loader.sv
 
 .PHONY:sim
 sim: waveform.vcd
