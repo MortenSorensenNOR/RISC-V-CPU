@@ -9,7 +9,12 @@ module top (
     input logic  mem_loader_SCK,
     input logic  mem_loader_CSn,
     input logic  mem_loader_MOSI,
-    output logic mem_loader_MISO
+    output logic mem_loader_MISO,
+
+    // Easy debugging
+    output logic [31:0] io_write_addr,
+    output logic [31:0] io_write_data,
+    output logic io_write_en
 );
 
     // Program loader
@@ -93,5 +98,10 @@ module top (
         .o_data_mem_data_mask(data_mem_data_mask),
         .i_data_mem_read_data(data_mem_read_data)
     );
+
+    // DEBUG
+    assign io_write_addr = data_mem_addr;
+    assign io_write_data = data_mem_write_data;
+    assign io_write_en   = data_mem_write_en;
 
 endmodule

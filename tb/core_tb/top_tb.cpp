@@ -55,31 +55,33 @@ int main(int argc, char* argv[]) {
     dut->rstn = 1;
 
     // Set program memory
-    for (int i = 0; i < 128; i++) {
-        spi_interface.transfer(0xff);
-    }
+    bool use_spi_program_load = false;
+    if (use_spi_program_load) {
+        for (int i = 0; i < 128; i++) {
+            spi_interface.transfer(0xff);
+        }
+        dut->load_program = 1;
+        while (spi_interface.finished() == 0) {
+            dut->clk ^= 1;
+            dut->eval();
 
-    dut->load_program = 1;
-    while (spi_interface.finished() == 0) {
-        dut->clk ^= 1;
-        dut->eval();
-        
-        spi_interface.update(dut->clk, SCK, CSn, MOSI, MISO);
-        dut->mem_loader_SCK = SCK;
-        dut->mem_loader_CSn = CSn;
-        dut->mem_loader_MOSI = MOSI;
+            spi_interface.update(dut->clk, SCK, CSn, MOSI, MISO);
+            dut->mem_loader_SCK = SCK;
+            dut->mem_loader_CSn = CSn;
+            dut->mem_loader_MOSI = MOSI;
 
-        m_trace->dump(sim_time);
-        sim_time++;
+            m_trace->dump(sim_time);
+            sim_time++;
+        }
+        // Ensure the program has finished writing
+        for (int i = 0; i < 32; i++) {
+            dut->clk ^= 1;
+            dut->eval();
+            m_trace->dump(sim_time);
+            sim_time++;
+        }
+        dut->load_program = 0;
     }
-    // Ensure the program has finished writing
-    for (int i = 0; i < 32; i++) {
-        dut->clk ^= 1;
-        dut->eval();
-        m_trace->dump(sim_time);
-        sim_time++;
-    }
-    dut->load_program = 0;
 
     // Simulation
     vluint64_t finished_clock = -1;
@@ -88,15 +90,13 @@ int main(int argc, char* argv[]) {
         dut->clk ^= 1;
         dut->eval();
 
-        spi_interface.update(dut->clk, SCK, CSn, MOSI, MISO);
-        dut->mem_loader_SCK = SCK;
-        dut->mem_loader_CSn = CSn;
-        dut->mem_loader_MOSI = MOSI;
-
-        if (dut->clk == 1) {
-            posedge_cnt++;
-
-            vluint32_t PC = dut->top__DOT__core_inst__DOT__if_stage_inst__DOT__PC;
+        if (dut->clk) {
+            // Will use spi in the end, but for now, just get values directly
+            if (dut->io_write_en) {
+                if (dut->io_write_addr == UART_BASE_ADDR) {
+                    printf("%c", dut->io_write_data & 0xff);
+                }
+            }
         }
 
         m_trace->dump(sim_time);
