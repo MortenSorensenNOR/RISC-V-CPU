@@ -5,21 +5,15 @@ module top (
     input logic rstn,
 
     // For loading programs into instruction memory from external device
-    input logic mem_loader_write_en,
-    input logic mem_loader_SCK,
-    input logic mem_loader_CSn,
-    input logic mem_loader_MOSI,
+    input logic  load_program,
+    input logic  mem_loader_SCK,
+    input logic  mem_loader_CSn,
+    input logic  mem_loader_MOSI,
     output logic mem_loader_MISO
-
-    // // For basic I/O using same addr/data buss as memory
-    // //      -- for now just writes
-    // output logic [31:0] io_write_addr,
-    // output logic io_write_en,
-    // output logic [31:0] io_write_data
 );
 
     // Program loader
-    logic core_load_resetn;
+    logic core_program_resetn;
     logic [7:0] mem_loader_mem_write_data;
     logic [31:0] mem_loader_mem_write_addr;
     logic mem_loader_mem_write_en;
@@ -28,17 +22,17 @@ module top (
         .clk(clk),
         .rstn(rstn),
 
-        .device_mem_write_en(mem_loader_write_en),
-        .core_load_resetn(core_load_resetn),
+        .load_program(load_program),
+        .core_program_resetn(core_program_resetn),
 
         .mem_write_addr(mem_loader_mem_write_addr),
         .mem_write_data(mem_loader_mem_write_data),
         .mem_write_en(mem_loader_mem_write_en),
 
-        .device_SCK(mem_loader_SCK),
-        .device_CSn(mem_loader_CSn),
-        .device_MOSI(mem_loader_MOSI),
-        .device_MISO(mem_loader_MISO)
+        .SCK(mem_loader_SCK),
+        .CSn(mem_loader_CSn),
+        .MOSI(mem_loader_MOSI),
+        .MISO(mem_loader_MISO)
     );
 
     // Instruction Memory
@@ -83,7 +77,7 @@ module top (
 
     // Core
     logic core_resetn;
-    assign core_resetn = rstn & core_load_resetn;
+    assign core_resetn = rstn & core_program_resetn;
 
     core core_inst (
         .clk(clk),

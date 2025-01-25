@@ -49,7 +49,7 @@ waveform.vcd: ./obj_dir/V$(MODULE) test/program.bin
 	@echo "### BUILDING SIM ###"
 	make -C obj_dir -f V$(MODULE).mk V$(MODULE)
 
-.stamp.verilate: $(SRC_DIR)/$(MODULE).sv $(IMPORTS) $(MODULE)_tb.cpp test/program.bin
+.stamp.verilate: $(SRC_DIR)/$(MODULE).sv $(IMPORTS) $(MODULE)_tb.cpp test/program.bin ../verilator_utils/SPI.h
 	@echo
 	@echo "### VERILATING ###"
 	verilator -Wall --trace --x-assign unique --x-initial unique \

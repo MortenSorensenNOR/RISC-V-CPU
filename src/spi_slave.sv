@@ -18,34 +18,35 @@ module spi_slave #(
     output logic [7:0] RX_Byte,
     output logic RX_Valid,
 
-    // input logic [7:0] TX_Byte,
-    // input logic TX_Valid,
-    // output logic TX_Ready,
-
-    input logic MOSI,
-    output logic MISO,
     input logic SCK,
-    input logic CSn
+    input logic CSn,
+    input logic MOSI,
+    output logic MISO
 );
 
     // Read from input buss
-    logic [2:0] r_RX_Bit_Count;
-    logic [7:0] r_Intermediate_RX_Byte;
-    logic [7:0] r_RX_Byte;
-    logic r_RX_Done;
+    logic [2:0] r_RX_Bit_Count = '0;
+    logic [7:0] r_Intermediate_RX_Byte = '0;
+    logic [7:0] r_RX_Byte = '0;
+    logic r_RX_Done = '0;
     always_ff @(posedge SCK) begin
-        if (CSn) begin
+        if (~rstn) begin
             r_RX_Bit_Count <= '0;
             r_RX_Done <= '0;
         end else begin
-            r_RX_Bit_Count <= r_RX_Bit_Count + 3'b001;
-            r_Intermediate_RX_Byte <= {r_Intermediate_RX_Byte[6:0], MOSI};
-
-            if (r_RX_Bit_Count == 3'b111) begin
-                r_RX_Done <= 1'b1;
-                r_RX_Byte <= {r_Intermediate_RX_Byte[6:0], MOSI};
+            if (CSn) begin
+                r_RX_Bit_Count <= '0;
+                r_RX_Done <= '0;
             end else begin
-                r_RX_Done <= 1'b0;
+                r_RX_Bit_Count <= r_RX_Bit_Count + 3'b001;
+                r_Intermediate_RX_Byte <= {r_Intermediate_RX_Byte[6:0], MOSI};
+
+                if (r_RX_Bit_Count == 3'b111) begin
+                    r_RX_Done <= 1'b1;
+                    r_RX_Byte <= {r_Intermediate_RX_Byte[6:0], MOSI};
+                end else begin
+                    r_RX_Done <= 1'b0;
+                end
             end
         end
     end

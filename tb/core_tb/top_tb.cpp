@@ -11,7 +11,9 @@
 #include <verilated_vcd_c.h>
 #include "obj_dir/Vtop.h"
 
-#define MAX_SIM_TIME 128
+#include "../verilator_utils/SPI.h"
+
+#define MAX_SIM_TIME 256
 #define RESET_CLKS 8
 #define DEVICE_MEMORY_SIZE 8192 // * 4 Bytes
 
@@ -29,28 +31,68 @@ int main(int argc, char* argv[]) {
     dut->trace(m_trace, 5);
     m_trace->open("waveform.vcd");
 
+    SPI_Master spi_interface;
+    int SCK, CSn, MISO, MOSI;
+    SCK = 0;
+    MISO = 0;
+    MOSI = 0;
+    CSn = 1;
+
+    // Reset
     dut->clk = 1;
     dut->rstn = 0;
     for (int i = 0; i < RESET_CLKS; i++) {
         dut->clk ^= 1;
         dut->eval();
+
+        dut->mem_loader_SCK = 0;
+        dut->mem_loader_CSn = 1;
+        dut->mem_loader_MOSI = 0;
+
         m_trace->dump(sim_time);
         sim_time++;
     }
     dut->rstn = 1;
 
     // Set program memory
-    dut->mem_loader_write_en = 1;
-    
-    dut->mem_loader_write_en = 0;
+    for (int i = 0; i < 128; i++) {
+        spi_interface.transfer(0xff);
+    }
+
+    dut->load_program = 1;
+    while (spi_interface.finished() == 0) {
+        dut->clk ^= 1;
+        dut->eval();
+        
+        spi_interface.update(dut->clk, SCK, CSn, MOSI, MISO);
+        dut->mem_loader_SCK = SCK;
+        dut->mem_loader_CSn = CSn;
+        dut->mem_loader_MOSI = MOSI;
+
+        m_trace->dump(sim_time);
+        sim_time++;
+    }
+    // Ensure the program has finished writing
+    for (int i = 0; i < 32; i++) {
+        dut->clk ^= 1;
+        dut->eval();
+        m_trace->dump(sim_time);
+        sim_time++;
+    }
+    dut->load_program = 0;
 
     // Simulation
     vluint64_t finished_clock = -1;
-    while (sim_time < MAX_SIM_TIME) {
+    vluint64_t start = sim_time;
+    while (sim_time < MAX_SIM_TIME + start) {
         dut->clk ^= 1;
         dut->eval();
 
-        // printf("\n");
+        spi_interface.update(dut->clk, SCK, CSn, MOSI, MISO);
+        dut->mem_loader_SCK = SCK;
+        dut->mem_loader_CSn = CSn;
+        dut->mem_loader_MOSI = MOSI;
+
         if (dut->clk == 1) {
             posedge_cnt++;
 
