@@ -9,12 +9,21 @@ module if_stage #(
     input logic if_stall,
 
     // PC
-    input logic PCNextSrc,              // 0: PC + 4, 1: PC+IMM/IMM+RS1
-    input logic PCJumpTargetSrc,        // 0: PC+IMM, 1: IMM+RS1
+    input logic BranchPredictTaken,             // From ID Branch predictor
+    input logic EXPcJumpTaken,                  // Branch taken in EX
+    input logic EXPcJumpSource,                 // Alu result or branch target as ex branch target
+    input logic PcRestore,                      // Restore PC to PC + 4 if an inncorrect
+                                                // branch prediction has taken place
 
-    input logic [31:0] pc_plus_imm,
-    input logic [31:0] pc_target_alu,
+    // From ID
+    input logic [31:0] id_branch_target,
 
+    // From EX
+    input logic [31:0] ex_branch_target,
+    input logic [31:0] ex_branch_target_alu,
+    input logic [31:0] ex_branch_restore_pc_p4,
+
+    // Output to next stage
     output logic [31:0] if_pc,
     output logic [31:0] if_pc_p4,
 
