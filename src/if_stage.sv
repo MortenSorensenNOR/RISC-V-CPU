@@ -1,8 +1,6 @@
 `timescale 1ns/1ps
 
-module if_stage #(
-    parameter unsigned CPU_RESET_VECTOR = 0     // Reset value for the PC, start of CPU execution
-) (
+/*
     input logic clk,
     input logic rstn,
 
@@ -24,6 +22,32 @@ module if_stage #(
     input logic [31:0] ex_branch_restore_pc_p4,
 
     // Output to next stage
+    output logic [31:0] if_pc,
+    output logic [31:0] if_pc_p4,
+
+    // Instruction fetching
+    output logic [31:0] o_instr_mem_read_addr,
+    input  logic [31:0] i_instr_mem_read_data,
+    // TODO: Add ready valid handshake to memory read
+
+    output logic [31:0] if_instr
+*/
+
+module if_stage #(
+    parameter unsigned CPU_RESET_VECTOR = 0     // Reset value for the PC, start of CPU execution
+) (
+    input logic clk,
+    input logic rstn,
+
+    input logic if_stall,
+
+    // PC
+    input logic PCNextSrc,              // 0: PC + 4, 1: PC+IMM/IMM+RS1
+    input logic PCJumpTargetSrc,        // 0: PC+IMM, 1: IMM+RS1
+
+    input logic [31:0] pc_plus_imm,
+    input logic [31:0] pc_target_alu,
+
     output logic [31:0] if_pc,
     output logic [31:0] if_pc_p4,
 

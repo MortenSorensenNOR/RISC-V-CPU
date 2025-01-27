@@ -12,6 +12,7 @@
 #include "obj_dir/Vtop.h"
 
 #include "../verilator_utils/SPI.h"
+#include "../verilator_utils/BranchPredictor.h"
 
 #define MAX_SIM_TIME 256
 #define RESET_CLKS 8
@@ -37,6 +38,8 @@ int main(int argc, char* argv[]) {
     MISO = 0;
     MOSI = 0;
     CSn = 1;
+
+    BranchPredictor branch_predictor(2, 128);
 
     // Reset
     dut->clk = 1;
@@ -90,11 +93,28 @@ int main(int argc, char* argv[]) {
         dut->clk ^= 1;
         dut->eval();
 
+        if (dut->clk == 0) {
+            int ex_pc, ex_branch_decision, ex_branch_update;
+            ex_pc = dut->top__DOT__core_inst__DOT__id_ex_pc;
+            ex_branch_decision = dut->top__DOT__core_inst__DOT__ex_stage_inst__DOT__w_branch_decision;
+            ex_branch_update = dut->top__DOT__core_inst__DOT__id_ex_branch || dut->top__DOT__core_inst__DOT__id_ex_jump;
+            branch_predictor.Update(ex_pc, ex_branch_decision, ex_branch_update);
+
+            int id_pc, id_branch, id_jump;
+            id_pc = dut->top__DOT__core_inst__DOT__if_id_pc;
+            id_branch = dut->top__DOT__core_inst__DOT__id_stage_inst__DOT__w_id_branch;
+            id_jump = dut->top__DOT__core_inst__DOT__id_stage_inst__DOT__w_id_jump;
+
+            if (id_branch == 1 || id_jump == 1) {
+                bool branch_prediction = branch_predictor.Predict(id_pc);
+            }
+        }
+
         if (dut->clk) {
             // Will use spi in the end, but for now, just get values directly
             if (dut->io_write_en) {
                 if (dut->io_write_addr == UART_BASE_ADDR) {
-                    printf("%c", dut->io_write_data & 0xff);
+                    printf("%c\n", dut->io_write_data & 0xff);
                 }
             }
         }

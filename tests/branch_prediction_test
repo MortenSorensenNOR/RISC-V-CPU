@@ -1,0 +1,18 @@
+
+00000000 <main>:
+    0:        00000293        addi x5 x0 0
+    4:        00000313        addi x6 x0 0
+    8:        00800393        addi x7 x0 8
+    c:        80000e37        lui x28 0x80000
+    10:        04c00e93        addi x29 x0 76
+
+00000014 <loop>:
+    14:        00530313        addi x6 x6 5
+    18:        12334313        xori x6 x6 291
+    1c:        01de0023        sb x29 0 x28
+    20:        00128293        addi x5 x5 1
+    24:        fe72c8e3        blt x5 x7 -16 <loop>
+
+00000028 <done>:
+    28:        fd9ff06f        jal x0 -40 <main>
+

@@ -140,7 +140,11 @@ module ex_stage (
     );
 
     // ========== Branch logic ==========
-    assign BranchDecision = jump | (branch & w_alu_cmp_result);
+    logic w_branch_decision;
+    always_comb begin
+        w_branch_decision = jump | (branch & w_alu_cmp_result);
+    end
+    assign BranchDecision = w_branch_decision;
 
     // ========== Output Mux ==========
     always_comb begin
