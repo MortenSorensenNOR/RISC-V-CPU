@@ -1,6 +1,7 @@
-obj_dir/
-*.vcd
+# Verilator simulation stuff
 .stamp.verilate
+*.vcd
 *.gtkw
 waveform.vcd
+obj_dir/
 .hdl_checker/
