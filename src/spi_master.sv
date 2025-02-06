@@ -41,19 +41,19 @@ module spi_master #(
     parameter unsigned CS_INACTIVE_CLKS = 1
 ) (
     // Control/Data Signals,
-    input logic rstn,     // FPGA Reset
     input logic clk,       // FPGA Clock
+    input logic rstn,      // FPGA Reset
 
     // TX (MOSI) Signals
     input logic [$clog2(MAX_BYTES_PER_CS+1)-1:0] i_TX_Count,  // # bytes per CS low
-    input logic [7:0]  i_TX_Byte,       // Byte to transmit on MOSI
-    input logic  i_TX_DV,         // Data Valid Pulse with i_TX_Byte
-    output logic o_TX_Ready,      // Transmit Ready for next byte
+    input logic [7:0]  i_TX_Byte,                             // Byte to transmit on MOSI
+    input logic        i_TX_DV,                               // Data Valid Pulse with i_TX_Byte
+    output logic       o_TX_Ready,                            // Transmit Ready for next byte
 
     // RX (MISO) Signals
-    output logic [$clog2(MAX_BYTES_PER_CS+1)-1:0] o_RX_Count,  // Index RX byte
-    output logic                                o_RX_DV,     // Data Valid pulse (1 clock cycle)
-    output logic [7:0]                          o_RX_Byte,   // Byte received on MISO
+    output logic [$clog2(MAX_BYTES_PER_CS+1)-1:0] o_RX_Count, // Index RX byte
+    output logic                                  o_RX_DV,    // Data Valid pulse (1 clock cycle)
+    output logic [7:0]                            o_RX_Byte,  // Byte received on MISO
 
     // SPI Interface
     output logic o_SCK,
