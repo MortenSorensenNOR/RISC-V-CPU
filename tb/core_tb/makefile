@@ -22,6 +22,8 @@ IMPORTS=\
 	$(SRC_DIR)/d_mem.sv \
 	$(SRC_DIR)/core.sv \
 	$(SRC_DIR)/spi_slave.sv \
+	$(SRC_DIR)/spi_master.sv \
+	$(SRC_DIR)/spi_io.sv \
 	$(SRC_DIR)/spi_program_loader.sv
 
 .PHONY:sim

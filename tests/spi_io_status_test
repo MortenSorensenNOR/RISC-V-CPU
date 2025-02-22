@@ -1,0 +1,58 @@
+    0:        0200006f        jal x0 32 <main>
+
+00000004 <print>:
+    4:        800002b7        lui x5 0x80000
+    8:        07700393        addi x7 x0 119
+
+0000000c <_print_wait_ready>:
+    c:        00028303        lb x6 0 x5
+    10:        00137313        andi x6 x6 1
+    14:        fe031ce3        bne x6 x0 -8 <_print_wait_ready>
+    18:        00a28023        sb x10 0 x5
+    1c:        00008067        jalr x0 x1 0
+
+00000020 <main>:
+    20:        04800513        addi x10 x0 72
+    24:        00000097        auipc x1 0x0
+    28:        fe0080e7        jalr x1 x1 -32
+    2c:        06500513        addi x10 x0 101
+    30:        00000097        auipc x1 0x0
+    34:        fd4080e7        jalr x1 x1 -44
+    38:        06c00513        addi x10 x0 108
+    3c:        00000097        auipc x1 0x0
+    40:        fc8080e7        jalr x1 x1 -56
+    44:        06c00513        addi x10 x0 108
+    48:        00000097        auipc x1 0x0
+    4c:        fbc080e7        jalr x1 x1 -68
+    50:        06f00513        addi x10 x0 111
+    54:        00000097        auipc x1 0x0
+    58:        fb0080e7        jalr x1 x1 -80
+    5c:        02000513        addi x10 x0 32
+    60:        00000097        auipc x1 0x0
+    64:        fa4080e7        jalr x1 x1 -92
+    68:        05700513        addi x10 x0 87
+    6c:        00000097        auipc x1 0x0
+    70:        f98080e7        jalr x1 x1 -104
+    74:        06f00513        addi x10 x0 111
+    78:        00000097        auipc x1 0x0
+    7c:        f8c080e7        jalr x1 x1 -116
+    80:        07200513        addi x10 x0 114
+    84:        00000097        auipc x1 0x0
+    88:        f80080e7        jalr x1 x1 -128
+    8c:        06c00513        addi x10 x0 108
+    90:        00000097        auipc x1 0x0
+    94:        f74080e7        jalr x1 x1 -140
+    98:        06400513        addi x10 x0 100
+    9c:        00000097        auipc x1 0x0
+    a0:        f68080e7        jalr x1 x1 -152
+    a4:        02100513        addi x10 x0 33
+    a8:        00000097        auipc x1 0x0
+    ac:        f5c080e7        jalr x1 x1 -164
+    b0:        00a00513        addi x10 x0 10
+    b4:        00000097        auipc x1 0x0
+    b8:        f50080e7        jalr x1 x1 -176
+    bc:        0040006f        jal x0 4 <done>
+
+000000c0 <done>:
+    c0:        0000006f        jal x0 0 <done>
+

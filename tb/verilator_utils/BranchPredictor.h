@@ -44,7 +44,7 @@ public:
         char query_table_entry = table[query_table_index];
 
         bool predict_taken = query_table_entry > (1 << (N - 1));
-        printf("Predict: pc: 0x%04x -> %s(%d)\n", id_pc, predict_taken ? "taken" : "not taken", query_table_entry);
+        // printf("Predict: pc: 0x%04x -> %s(%d)\n", id_pc, predict_taken ? "taken" : "not taken", query_table_entry);
 
         // table[index] > 2^{N-1}
         return query_table_entry > (1 << (N - 1));

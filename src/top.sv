@@ -11,10 +11,10 @@ module top (
     input logic  mem_loader_MOSI,
     output logic mem_loader_MISO,
 
-    // Easy debugging
-    output logic [31:0] io_write_addr,
-    output logic [31:0] io_write_data,
-    output logic io_write_en
+    // SPI I/O
+    output logic spi_io_sck,
+    output logic spi_io_mosi,
+    output logic spi_io_csn
 );
 
     // Program loader
@@ -80,9 +80,37 @@ module top (
         .read_data(data_mem_read_data)
     );
 
+    // SPI I/O
+    logic [7:0] spi_io_status;
+    logic       spi_io_status_write_en;
+
+    spi_io #(
+        .CLKS_PER_HALF_BIT(5),
+        .SPI_IO_ADDR(32'h80000000)
+    ) spi_io_inst (
+        .clk(clk),
+        .rstn(rstn),
+
+        .mem_bus_addr(data_mem_addr),
+        .mem_bus_data(data_mem_write_data),
+        .mem_bus_write_en(data_mem_write_en),
+        .mem_bus_data_mask(data_mem_data_mask),
+
+        .mem_bus_read_en(data_mem_read_en),
+        .mem_bus_spi_status(spi_io_status),
+        .mem_bus_spi_status_write_en(spi_io_status_write_en),
+
+        .o_spi_sck(spi_io_sck),
+        .o_spi_mosi(spi_io_mosi),
+        .o_spi_csn(spi_io_csn)
+    );
+
     // Core
     logic core_resetn;
     assign core_resetn = rstn & core_program_resetn;
+
+    // In order to give SPI status precedence
+    logic [31:0] core_data_mem_read_data;
 
     core core_inst (
         .clk(clk),
@@ -96,12 +124,17 @@ module top (
         .o_data_mem_write_en(data_mem_write_en),
         .o_data_mem_read_en(data_mem_read_en),
         .o_data_mem_data_mask(data_mem_data_mask),
-        .i_data_mem_read_data(data_mem_read_data)
+        .i_data_mem_read_data(core_data_mem_read_data)
     );
 
-    // DEBUG
-    assign io_write_addr = data_mem_addr;
-    assign io_write_data = data_mem_write_data;
-    assign io_write_en   = data_mem_write_en;
+    // In order to do SPI status stuff, the SPI status has to have precedence
+    // (for now) over the data memory bus
+    always_comb begin
+        if (spi_io_status_write_en) begin
+            core_data_mem_read_data = {{24{1'b0}}, spi_io_status};
+        end else begin
+            core_data_mem_read_data = data_mem_read_data;
+        end
+    end
 
 endmodule

@@ -14,7 +14,7 @@
 #include "../verilator_utils/SPI.h"
 #include "../verilator_utils/BranchPredictor.h"
 
-#define MAX_SIM_TIME 256
+#define MAX_SIM_TIME 123456
 #define RESET_CLKS 8
 #define DEVICE_MEMORY_SIZE 8192 // * 4 Bytes
 
@@ -32,14 +32,18 @@ int main(int argc, char* argv[]) {
     dut->trace(m_trace, 5);
     m_trace->open("waveform.vcd");
 
-    SPI_Master spi_interface;
-    int SCK, CSn, MISO, MOSI;
-    SCK = 0;
-    MISO = 0;
-    MOSI = 0;
-    CSn = 1;
+    // Program interface
+    SPI_Master prog_spi_interface;
+    int prog_SCK, prog_CSn, prog_MISO, prog_MOSI;
+    prog_SCK = 0;
+    prog_MISO = 0;
+    prog_MOSI = 0;
+    prog_CSn = 1;
 
-    BranchPredictor branch_predictor(2, 128);
+    // SPI I/O
+    SPI_Slave spi_io;
+
+    // BranchPredictor branch_predictor(2, 128);
 
     // Reset
     dut->clk = 1;
@@ -61,17 +65,17 @@ int main(int argc, char* argv[]) {
     bool use_spi_program_load = false;
     if (use_spi_program_load) {
         for (int i = 0; i < 128; i++) {
-            spi_interface.transfer(0xff);
+            prog_spi_interface.transfer(0xff);
         }
         dut->load_program = 1;
-        while (spi_interface.finished() == 0) {
+        while (prog_spi_interface.finished() == 0) {
             dut->clk ^= 1;
             dut->eval();
 
-            spi_interface.update(dut->clk, SCK, CSn, MOSI, MISO);
-            dut->mem_loader_SCK = SCK;
-            dut->mem_loader_CSn = CSn;
-            dut->mem_loader_MOSI = MOSI;
+            prog_spi_interface.update(dut->clk, prog_SCK, prog_CSn, prog_MOSI, prog_MISO);
+            dut->mem_loader_SCK = prog_SCK;
+            dut->mem_loader_CSn = prog_CSn;
+            dut->mem_loader_MOSI = prog_MOSI;
 
             m_trace->dump(sim_time);
             sim_time++;
@@ -93,31 +97,28 @@ int main(int argc, char* argv[]) {
         dut->clk ^= 1;
         dut->eval();
 
-        if (dut->clk == 0) {
-            int ex_pc, ex_branch_decision, ex_branch_update;
-            ex_pc = dut->top__DOT__core_inst__DOT__id_ex_pc;
-            ex_branch_decision = dut->top__DOT__core_inst__DOT__ex_stage_inst__DOT__w_branch_decision;
-            ex_branch_update = dut->top__DOT__core_inst__DOT__id_ex_branch || dut->top__DOT__core_inst__DOT__id_ex_jump;
-            branch_predictor.Update(ex_pc, ex_branch_decision, ex_branch_update);
+        spi_io.update(dut->spi_io_sck, dut->spi_io_csn, dut->spi_io_mosi);
 
-            int id_pc, id_branch, id_jump;
-            id_pc = dut->top__DOT__core_inst__DOT__if_id_pc;
-            id_branch = dut->top__DOT__core_inst__DOT__id_stage_inst__DOT__w_id_branch;
-            id_jump = dut->top__DOT__core_inst__DOT__id_stage_inst__DOT__w_id_jump;
+        char c;
+        if (spi_io.get_char(c))
+            printf("%c", c);
 
-            if (id_branch == 1 || id_jump == 1) {
-                bool branch_prediction = branch_predictor.Predict(id_pc);
-            }
-        }
-
-        if (dut->clk) {
-            // Will use spi in the end, but for now, just get values directly
-            if (dut->io_write_en) {
-                if (dut->io_write_addr == UART_BASE_ADDR) {
-                    printf("%c\n", dut->io_write_data & 0xff);
-                }
-            }
-        }
+        // if (dut->clk == 0) {
+        //     int ex_pc, ex_branch_decision, ex_branch_update;
+        //     ex_pc = dut->top__DOT__core_inst__DOT__id_ex_pc;
+        //     ex_branch_decision = dut->top__DOT__core_inst__DOT__ex_stage_inst__DOT__w_branch_decision;
+        //     ex_branch_update = dut->top__DOT__core_inst__DOT__id_ex_branch || dut->top__DOT__core_inst__DOT__id_ex_jump;
+        //     branch_predictor.Update(ex_pc, ex_branch_decision, ex_branch_update);
+        //
+        //     int id_pc, id_branch, id_jump;
+        //     id_pc = dut->top__DOT__core_inst__DOT__if_id_pc;
+        //     id_branch = dut->top__DOT__core_inst__DOT__id_stage_inst__DOT__w_id_branch;
+        //     id_jump = dut->top__DOT__core_inst__DOT__id_stage_inst__DOT__w_id_jump;
+        //
+        //     if (id_branch == 1 || id_jump == 1) {
+        //         bool branch_prediction = branch_predictor.Predict(id_pc);
+        //     }
+        // }
 
         m_trace->dump(sim_time);
         sim_time++;

@@ -1,4 +1,5 @@
 #pragma once
+#include <iterator>
 #include <vector>
 #include <deque>
 #include <verilated.h>
@@ -84,6 +85,70 @@ public:
         }
 
     }
+};
 
+class SPI_Slave {
 private:
+    enum class SPI_STATE {
+        IDLE,
+        READING
+    };
+    SPI_STATE state = SPI_STATE::IDLE;
+    SPI_STATE next_state = SPI_STATE::IDLE;
+
+    Signal<int> SCK_s;
+    Signal<int> CSn_s;
+
+    std::deque<char> read_buffer;
+
+public:
+    SPI_Slave() : SCK_s(0), CSn_s(1) {
+        read_buffer.resize(0);
+    }
+
+    int get_char(char& c) {
+        if (read_buffer.empty())
+            return 0;
+        c = read_buffer.front();
+        read_buffer.pop_front();
+        return 1;
+    }
+
+    void update(int SCK, int CSn, int MOSI) {
+        static char RX_Byte;
+        static int  read_bit_count = 0;
+
+        // Update signals
+        SCK_s.update(SCK);
+        CSn_s.update(CSn);
+
+        // Update state
+        state = next_state;
+
+        switch (state) {
+            case SPI_STATE::IDLE:
+                if (CSn_s.negedge())
+                    next_state = SPI_STATE::READING;
+                break;
+
+            case SPI_STATE::READING: {
+                if (CSn_s.posedge()) {
+                    read_bit_count = 0;
+                    next_state = SPI_STATE::IDLE;
+                } else {
+                    if (SCK_s.posedge()) {
+                        RX_Byte = (RX_Byte << 1) | (MOSI & 1);
+                        read_bit_count++;
+
+                        if (read_bit_count == 8) {
+                            read_buffer.push_back(RX_Byte);
+                            read_bit_count = 0;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+    }
 };
