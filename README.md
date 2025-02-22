@@ -6,4 +6,5 @@ Testing done in Verilator.
 For now most of the RV32I extention is implemented except for *ecall* and *ebreak*. The plan is to further implement the RV32M and later RV32F extentions.
 
 ## Architecture
-For now just a simple 5 stage pipeline. The plan is to add branch predicion, caching and external DDR memory through an AXI DMA interface.
+For now just a simple 5 stage pipeline. The plan is to add branch predicion, caching and external DDR memory through an AXI DMA interface.  
+If time permits I might embark on an out-of-order architecture, but that will be after I have gotten some more experience.
