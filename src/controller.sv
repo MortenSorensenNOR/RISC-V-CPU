@@ -23,7 +23,7 @@ module controller (
     // MEM
     output logic MemWrite,
     output logic MemRead,
-    output logic [1:0] MemDataMask, // 01: byte, 10: half word, 11: word
+    output logic [3:0] MemDataMask, // 01: byte, 10: half word, 11: word
     output logic MemReadSignExtend,
 
     // WB
@@ -62,7 +62,8 @@ module controller (
 
         MemRead  = 1'b0;
         MemWrite = 1'b0;
-        MemDataMask = 2'b11;
+        MemDataMask = 4'b1111;
+        MemReadSignExtend = 1'b1;
         RegWrite = 1'b0;
         RegWriteSrc = 2'b00;
 
@@ -94,29 +95,29 @@ module controller (
                 // Load mask
                 case (funct3)
                     3'h0: begin
-                        MemDataMask = 2'b01;
+                        MemDataMask = 4'b0001;
                     end
 
                     3'h4: begin
-                        MemDataMask = 2'b01;
+                        MemDataMask = 4'b0001;
                         MemReadSignExtend = 1'b0;
                     end
 
                     3'h1: begin
-                        MemDataMask = 2'b10;
+                        MemDataMask = 4'b0011;
                     end
 
                     3'h5: begin
-                        MemDataMask = 2'b10;
+                        MemDataMask = 4'b0011;
                         MemReadSignExtend = 1'b0;
                     end
 
                     3'h2: begin
-                        MemDataMask = 2'b11;
+                        MemDataMask = 4'b1111;
                     end
 
                     default: begin
-                        MemDataMask = 2'b11;
+                        MemDataMask = 4'b1111;
                     end
                 endcase
 
@@ -133,19 +134,19 @@ module controller (
                 // Load mask
                 case (funct3)
                     3'h0, 3'h4: begin
-                        MemDataMask = 2'b01;
+                        MemDataMask = 4'b0001;
                     end
 
                     3'h1, 3'h5: begin
-                        MemDataMask = 2'b10;
+                        MemDataMask = 4'b0011;
                     end
 
                     3'h2: begin
-                        MemDataMask = 2'b11;
+                        MemDataMask = 4'b1111;
                     end
 
                     default: begin
-                        MemDataMask = 2'b11;
+                        MemDataMask = 4'b1111;
                     end
                 endcase
 

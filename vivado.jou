@@ -1,0 +1,25 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Sun Feb 23 14:45:20 2025
+# Process ID         : 11930
+# Current directory  : /home/morten/dev/risc-v-cpu
+# Command line       : vivado
+# Log file           : /home/morten/dev/risc-v-cpu/vivado.log
+# Journal file       : /home/morten/dev/risc-v-cpu/vivado.jou
+# Running On         : laptop
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.5 LTS
+# Processor Detail   : AMD Ryzen 7 7840HS w/ Radeon 780M Graphics
+# CPU Frequency      : 1944.619 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15903 MB
+# Swap memory        : 8191 MB
+# Total Virtual      : 24095 MB
+# Available Virtual  : 20211 MB
+#-----------------------------------------------------------
+start_gui
+source build/build.tcl

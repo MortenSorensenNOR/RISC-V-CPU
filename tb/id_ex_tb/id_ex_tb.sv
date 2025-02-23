@@ -9,10 +9,7 @@ module id_ex_tb (
     input logic [31:0] rd1,
     input logic [31:0] rd2,
 
-    output logic [31:0] AluResult,
-    output logic AluZero,
-    output logic AluOvf,
-    output logic AluSign
+    output logic [31:0] AluResult
 );
 
     // ========== Immediate Generator ==========
@@ -86,10 +83,7 @@ module id_ex_tb (
         .imm(w_id_imm),
         .branch_target(w_id_branch_target),
 
-        .AluResult(AluResult),
-        .AluZero(AluZero),
-        .AluOvf(AluOvf),
-        .AluSign(AluSign)
+        .AluResult(AluResult)
     );
 
 endmodule;

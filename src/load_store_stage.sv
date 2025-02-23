@@ -6,7 +6,7 @@ module load_store_stage (
     input logic [31:0] WriteData,
     input logic WriteEnable,
     input logic ReadEnable,
-    input logic [1:0] DataMask,
+    input logic [3:0] DataMask,
     input logic SignExtend,
 
     // Output to MEM/WB
@@ -17,7 +17,7 @@ module load_store_stage (
     output logic [31:0] o_data_mem_write_data,
     output logic o_data_mem_read_en,
     output logic o_data_mem_write_en,
-    output logic [1:0] o_data_mem_data_mask,
+    output logic [3:0] o_data_mem_data_mask,
     input logic  [31:0] i_data_mem_read_data
 );
 
@@ -36,7 +36,7 @@ module load_store_stage (
         ReadData = '0;
 
         case (DataMask)
-            2'b01: begin
+            4'b0001: begin
                 if (SignExtend) begin
                     ReadData = {{24{i_data_mem_read_data[7]}}, i_data_mem_read_data[7:0]};
                 end else begin
@@ -44,7 +44,7 @@ module load_store_stage (
                 end
             end
 
-            2'b10: begin
+            4'b0011: begin
                 if (SignExtend) begin
                     ReadData = {{16{i_data_mem_read_data[15]}}, i_data_mem_read_data[15:0]};
                 end else begin
@@ -52,7 +52,7 @@ module load_store_stage (
                 end
             end
 
-            2'b11: begin
+            4'b1111: begin
                 ReadData = i_data_mem_read_data;
             end
 
@@ -60,7 +60,5 @@ module load_store_stage (
             end
         endcase
     end
-
-    assign ReadData = i_data_mem_read_data;
 
 endmodule

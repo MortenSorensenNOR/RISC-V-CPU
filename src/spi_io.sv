@@ -32,7 +32,7 @@ module spi_io #(
     input  logic [31:0] mem_bus_addr,
     input  logic [31:0] mem_bus_data,
     input  logic        mem_bus_write_en,
-    input  logic [1:0]  mem_bus_data_mask,
+    input  logic [3:0]  mem_bus_data_mask,
 
     input  logic        mem_bus_read_en,
     output logic [7:0]  mem_bus_spi_status,             // Bit meanings, see above
@@ -152,15 +152,19 @@ module spi_io #(
                             r_write_data[3] <= mem_bus_data[31:24];
 
                             case (mem_bus_data_mask)
-                                2'b01: begin
+                                4'b0001: begin
                                     r_spi_tx_num_bytes <= 3'b001;
                                 end
 
-                                2'b10: begin
+                                4'b0011: begin
                                     r_spi_tx_num_bytes <= 3'b010;
                                 end
 
-                                2'b11: begin
+                                4'b0111: begin
+                                    r_spi_tx_num_bytes <= 3'b011;
+                                end
+
+                                4'b1111: begin
                                     r_spi_tx_num_bytes <= 3'b100;
                                 end
 

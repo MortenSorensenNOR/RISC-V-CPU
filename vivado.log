@@ -1,0 +1,1172 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Sun Feb 23 14:45:20 2025
+# Process ID         : 11930
+# Current directory  : /home/morten/dev/risc-v-cpu
+# Command line       : vivado
+# Log file           : /home/morten/dev/risc-v-cpu/vivado.log
+# Journal file       : /home/morten/dev/risc-v-cpu/vivado.jou
+# Running On         : laptop
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.5 LTS
+# Processor Detail   : AMD Ryzen 7 7840HS w/ Radeon 780M Graphics
+# CPU Frequency      : 1944.619 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15903 MB
+# Swap memory        : 8191 MB
+# Total Virtual      : 24095 MB
+# Available Virtual  : 20211 MB
+#-----------------------------------------------------------
+start_gui
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:arty-z7-10:part0:1.1 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/arty-z7-10/A.0/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:arty-z7-20:part0:1.1 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/arty-z7-20/A.0/board.xml as part xc7z020clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:cora-z7-07s:part0:1.1 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/cora-z7-07s/B.0/board.xml as part xc7z007sclg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:cora-z7-10:part0:1.1 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/cora-z7-10/B.0/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:eclypse-z7:part0:1.0 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/eclypse-z7/A.0/board.xml as part xc7z020clg484-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:eclypse-z7:part0:1.1 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/eclypse-z7/B.0/board.xml as part xc7z020clg484-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:genesys2:part0:1.1 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/genesys2/H/board.xml as part xc7k325tffg900-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:sword:part0:1.0 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/sword/C.0/board.xml as part xc7k325tffg900-2 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zedboard:part0:1.1 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/zedboard/1.3/board.xml as part xc7z020clg484-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo-z7-10:part0:1.2 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/zybo-z7-10/A.0/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo-z7-20:part0:1.2 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/zybo-z7-20/A.0/board.xml as part xc7z020clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo:part0:1.0 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/zybo/B.3/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+WARNING: [Board 49-26] cannot add Board Part digilentinc.com:zybo:part0:2.0 available at /tools/Xilinx/Vivado/2024.2/data/boards/board_files/zybo/B.4/board.xml as part xc7z010clg400-1 specified in board_part file is either invalid or not available
+source build/build.tcl
+# set design_name "top"
+# set board_name "ArtyA7"
+# set fpga_part "xc7a100tcsg324-1"
+# set src_dir [file normalize "./src"]
+# set origin_dir [file normalize "./"]
+# file mkdir logs
+# read_verilog -sv "${src_dir}/if_stage.sv"
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2024.2/data/ip'.
+# read_verilog -sv "${src_dir}/IF_ID_Reg.sv"
+# read_verilog -sv "${src_dir}/controller.sv"
+# read_verilog -sv "${src_dir}/immediate_generator.sv"
+# read_verilog -sv "${src_dir}/register_file.sv"
+# read_verilog -sv "${src_dir}/id_stage.sv"
+# read_verilog -sv "${src_dir}/ID_EX_Reg.sv"
+# read_verilog -sv "${src_dir}/alu_controller.sv"
+# read_verilog -sv "${src_dir}/alu.sv"
+# read_verilog -sv "${src_dir}/forwarding_unit.sv"
+# read_verilog -sv "${src_dir}/ex_stage.sv"
+# read_verilog -sv "${src_dir}/EX_MEM_Reg.sv"
+# read_verilog -sv "${src_dir}/load_store_stage.sv"
+# read_verilog -sv "${src_dir}/MEM_WB_Reg.sv"
+# read_verilog -sv "${src_dir}/wb_stage.sv"
+# read_verilog -sv "${src_dir}/hazard_unit.sv"
+# read_verilog -sv "${src_dir}/i_mem.sv"
+# read_verilog -sv "${src_dir}/d_mem.sv"
+# read_verilog -sv "${src_dir}/core.sv"
+# read_verilog -sv "${src_dir}/spi_slave.sv"
+# read_verilog -sv "${src_dir}/spi_master.sv"
+# read_verilog -sv "${src_dir}/spi_io.sv"
+# read_verilog -sv "${src_dir}/spi_program_loader.sv"
+# add_files "${origin_dir}/programs/program.hex"
+# read_verilog -sv "${src_dir}/${design_name}.sv"
+# read_xdc "${origin_dir}/constraints/${board_name}.xdc"
+# synth_design -top "${design_name}" -part ${fpga_part}
+Command: synth_design -top top -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 12068
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 8142.449 ; gain = 442.617 ; free physical = 6507 ; free virtual = 18442
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'spi_program_loader' [/home/morten/dev/risc-v-cpu/src/spi_program_loader.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'spi_slave' [/home/morten/dev/risc-v-cpu/src/spi_slave.sv:12]
+INFO: [Synth 8-6155] done synthesizing module 'spi_slave' (0#1) [/home/morten/dev/risc-v-cpu/src/spi_slave.sv:12]
+INFO: [Synth 8-6155] done synthesizing module 'spi_program_loader' (0#1) [/home/morten/dev/risc-v-cpu/src/spi_program_loader.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'i_mem' [/home/morten/dev/risc-v-cpu/src/i_mem.sv:4]
+	Parameter MEMORY_SIZE bound to: 32'b00000000000000000000001000000000 
+	Parameter PROGRAM_PATH bound to: ../programs/program.hex - type: string 
+INFO: [Synth 8-3876] $readmem data file '../programs/program.hex' is read successfully [/home/morten/dev/risc-v-cpu/src/i_mem.sv:21]
+INFO: [Synth 8-6155] done synthesizing module 'i_mem' (0#1) [/home/morten/dev/risc-v-cpu/src/i_mem.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'd_mem' [/home/morten/dev/risc-v-cpu/src/d_mem.sv:5]
+	Parameter MEMORY_SIZE bound to: 32'b00000000000000000000001000000000 
+INFO: [Synth 8-6155] done synthesizing module 'd_mem' (0#1) [/home/morten/dev/risc-v-cpu/src/d_mem.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'spi_io' [/home/morten/dev/risc-v-cpu/src/spi_io.sv:21]
+	Parameter CLKS_PER_HALF_BIT bound to: 32'b00000000000000000000000000000101 
+	Parameter SPI_IO_ADDR bound to: -2147483648 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'spi_master' [/home/morten/dev/risc-v-cpu/src/spi_master.sv:37]
+	Parameter SPI_MODE bound to: 32'b00000000000000000000000000000000 
+	Parameter CLKS_PER_HALF_BIT bound to: 32'b00000000000000000000000000000101 
+	Parameter MAX_BYTES_PER_CS bound to: 32'b00000000000000000000000000000100 
+	Parameter CS_INACTIVE_CLKS bound to: 32'b00000000000000000000000000000001 
+INFO: [Synth 8-6157] synthesizing module 'spi_master_driver' [/home/morten/dev/risc-v-cpu/src/spi_master.sv:181]
+	Parameter SPI_MODE bound to: 32'b00000000000000000000000000000000 
+	Parameter CLKS_PER_HALF_BIT bound to: 32'b00000000000000000000000000000101 
+INFO: [Synth 8-6155] done synthesizing module 'spi_master_driver' (0#1) [/home/morten/dev/risc-v-cpu/src/spi_master.sv:181]
+INFO: [Synth 8-6155] done synthesizing module 'spi_master' (0#1) [/home/morten/dev/risc-v-cpu/src/spi_master.sv:37]
+INFO: [Synth 8-6155] done synthesizing module 'spi_io' (0#1) [/home/morten/dev/risc-v-cpu/src/spi_io.sv:21]
+INFO: [Synth 8-6157] synthesizing module 'core' [/home/morten/dev/risc-v-cpu/src/core.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'if_stage' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:36]
+INFO: [Synth 8-6155] done synthesizing module 'if_stage' (0#1) [/home/morten/dev/risc-v-cpu/src/if_stage.sv:36]
+INFO: [Synth 8-6157] synthesizing module 'IF_ID_Reg' [/home/morten/dev/risc-v-cpu/src/IF_ID_Reg.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'IF_ID_Reg' (0#1) [/home/morten/dev/risc-v-cpu/src/IF_ID_Reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'id_stage' [/home/morten/dev/risc-v-cpu/src/id_stage.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'register_file' [/home/morten/dev/risc-v-cpu/src/register_file.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'register_file' (0#1) [/home/morten/dev/risc-v-cpu/src/register_file.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'immediate_generator' [/home/morten/dev/risc-v-cpu/src/immediate_generator.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'immediate_generator' (0#1) [/home/morten/dev/risc-v-cpu/src/immediate_generator.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'controller' [/home/morten/dev/risc-v-cpu/src/controller.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'controller' (0#1) [/home/morten/dev/risc-v-cpu/src/controller.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'id_stage' (0#1) [/home/morten/dev/risc-v-cpu/src/id_stage.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'ID_EX_Reg' [/home/morten/dev/risc-v-cpu/src/ID_EX_Reg.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ID_EX_Reg' (0#1) [/home/morten/dev/risc-v-cpu/src/ID_EX_Reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'ex_stage' [/home/morten/dev/risc-v-cpu/src/ex_stage.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'alu_controller' [/home/morten/dev/risc-v-cpu/src/alu_controller.sv:3]
+INFO: [Synth 8-226] default block is never used [/home/morten/dev/risc-v-cpu/src/alu_controller.sv:48]
+INFO: [Synth 8-226] default block is never used [/home/morten/dev/risc-v-cpu/src/alu_controller.sv:67]
+INFO: [Synth 8-226] default block is never used [/home/morten/dev/risc-v-cpu/src/alu_controller.sv:97]
+INFO: [Synth 8-6155] done synthesizing module 'alu_controller' (0#1) [/home/morten/dev/risc-v-cpu/src/alu_controller.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'forwarding_unit' [/home/morten/dev/risc-v-cpu/src/forwarding_unit.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'forwarding_unit' (0#1) [/home/morten/dev/risc-v-cpu/src/forwarding_unit.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'alu' [/home/morten/dev/risc-v-cpu/src/alu.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [/home/morten/dev/risc-v-cpu/src/alu.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ex_stage' (0#1) [/home/morten/dev/risc-v-cpu/src/ex_stage.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'EX_MEM_Reg' [/home/morten/dev/risc-v-cpu/src/EX_MEM_Reg.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'EX_MEM_Reg' (0#1) [/home/morten/dev/risc-v-cpu/src/EX_MEM_Reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'load_store_stage' [/home/morten/dev/risc-v-cpu/src/load_store_stage.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'load_store_stage' (0#1) [/home/morten/dev/risc-v-cpu/src/load_store_stage.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'MEM_WB_Reg' [/home/morten/dev/risc-v-cpu/src/MEM_WB_Reg.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'MEM_WB_Reg' (0#1) [/home/morten/dev/risc-v-cpu/src/MEM_WB_Reg.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'wb_stage' [/home/morten/dev/risc-v-cpu/src/wb_stage.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'wb_stage' (0#1) [/home/morten/dev/risc-v-cpu/src/wb_stage.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'hazard_unit' [/home/morten/dev/risc-v-cpu/src/hazard_unit.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'hazard_unit' (0#1) [/home/morten/dev/risc-v-cpu/src/hazard_unit.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'core' (0#1) [/home/morten/dev/risc-v-cpu/src/core.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+WARNING: [Synth 8-7129] Port read_en in module d_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[31] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[30] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[29] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[28] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[27] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[26] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[25] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[24] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[23] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[22] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[21] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[20] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[19] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[18] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[17] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[16] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[15] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[14] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[13] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[12] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[11] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[10] in module i_mem is either unconnected or has no load
+WARNING: [Synth 8-7129] Port mem_loader_write_addr[9] in module i_mem is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 8209.449 ; gain = 509.617 ; free physical = 6405 ; free virtual = 18340
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 8221.324 ; gain = 521.492 ; free physical = 6405 ; free virtual = 18340
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 8221.324 ; gain = 521.492 ; free physical = 6405 ; free virtual = 18340
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 8221.324 ; gain = 0.000 ; free physical = 6405 ; free virtual = 18340
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/morten/dev/risc-v-cpu/constraints/ArtyA7.xdc]
+Finished Parsing XDC File [/home/morten/dev/risc-v-cpu/constraints/ArtyA7.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/morten/dev/risc-v-cpu/constraints/ArtyA7.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 8339.094 ; gain = 0.000 ; free physical = 6395 ; free virtual = 18330
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 8339.094 ; gain = 0.000 ; free physical = 6395 ; free virtual = 18330
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 8359.094 ; gain = 659.262 ; free physical = 6413 ; free virtual = 18348
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 8359.094 ; gain = 659.262 ; free physical = 6413 ; free virtual = 18348
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 8359.094 ; gain = 659.262 ; free physical = 6413 ; free virtual = 18348
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3936] Found unconnected internal register 'r_Intermediate_RX_Byte_reg' and it is trimmed from '8' to '7' bits. [/home/morten/dev/risc-v-cpu/src/spi_slave.sv:42]
+INFO: [Synth 8-802] inferred FSM for state register 'r_SM_CS_reg' in module 'spi_master'
+INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'spi_io'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              001 |                               00
+                TRANSFER |                              010 |                               01
+              CSInactive |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'r_SM_CS_reg' using encoding 'one-hot' in module 'spi_master'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              001 |                              000
+                 WRITING |                              010 |                              001
+                    DONE |                              100 |                              010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'one-hot' in module 'spi_io'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 8359.094 ; gain = 659.262 ; free physical = 6416 ; free virtual = 18352
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 3     
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input    9 Bit       Adders := 3     
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 5     
+	   2 Input    2 Bit       Adders := 3     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 47    
+	                8 Bit    Registers := 10    
+	                7 Bit    Registers := 2     
+	                5 Bit    Registers := 6     
+	                4 Bit    Registers := 3     
+	                3 Bit    Registers := 6     
+	                2 Bit    Registers := 9     
+	                1 Bit    Registers := 28    
++---RAMs : 
+	               4K Bit	(128 X 32 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 22    
+	   3 Input   32 Bit        Muxes := 1     
+	   4 Input   32 Bit        Muxes := 4     
+	   2 Input    8 Bit        Muxes := 4     
+	  32 Input    8 Bit        Muxes := 2     
+	   4 Input    8 Bit        Muxes := 1     
+	   3 Input    8 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 2     
+	   2 Input    4 Bit        Muxes := 2     
+	   3 Input    4 Bit        Muxes := 2     
+	   6 Input    4 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 2     
+	   8 Input    4 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 1     
+	   3 Input    3 Bit        Muxes := 1     
+	   5 Input    3 Bit        Muxes := 1     
+	  10 Input    3 Bit        Muxes := 1     
+	   8 Input    3 Bit        Muxes := 1     
+	   3 Input    2 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 25    
+	   3 Input    1 Bit        Muxes := 11    
+	   6 Input    1 Bit        Muxes := 1     
+	   4 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3917] design top has port mem_loader_MISO driven by constant 0
+INFO: [Synth 8-6851] RAM (data_memory_instr/d_mem_reg) has partial Byte Wide Write Enable pattern, however no output register found in fanout of RAM. Recommended to use supported Byte Wide Write Enable template. 
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 8403.891 ; gain = 704.059 ; free physical = 6364 ; free virtual = 18307
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+-------------------------------------+-----------+----------------------+-----------------+
+|Module Name | RTL Object                          | Inference | Size (Depth x Width) | Primitives      | 
++------------+-------------------------------------+-----------+----------------------+-----------------+
+|top         | data_memory_instr/d_mem_reg         | Implied   | 128 x 32             | RAM128X1S x 32  | 
+|top         | instruction_mememory_inst/i_mem_reg | Implied   | 512 x 8              | RAM64M x 96     | 
++------------+-------------------------------------+-----------+----------------------+-----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:18 . Memory (MB): peak = 8426.891 ; gain = 727.059 ; free physical = 6358 ; free virtual = 18300
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:24 . Memory (MB): peak = 8577.922 ; gain = 878.090 ; free physical = 6249 ; free virtual = 18191
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------+-------------------------------------+-----------+----------------------+-----------------+
+|Module Name | RTL Object                          | Inference | Size (Depth x Width) | Primitives      | 
++------------+-------------------------------------+-----------+----------------------+-----------------+
+|top         | data_memory_instr/d_mem_reg         | Implied   | 128 x 32             | RAM128X1S x 32  | 
+|top         | instruction_mememory_inst/i_mem_reg | Implied   | 512 x 8              | RAM64M x 96     | 
++------------+-------------------------------------+-----------+----------------------+-----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+Found timing loop:
+     0: i_2075/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2075/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2075/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2075/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2074/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2074/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2074/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2074/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2073/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2073/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2073/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2073/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2072/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2072/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2072/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2072/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2071/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2071/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2071/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2071/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2070/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2070/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2070/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2070/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2069/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2069/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2069/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2069/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2068/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2068/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2068/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2068/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2067/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2067/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2067/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2067/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2066/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2066/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2066/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2066/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2065/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2065/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2065/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2065/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2064/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2064/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2064/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2064/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2063/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2063/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2063/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2063/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2062/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2062/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2062/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2062/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2061/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2061/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2061/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2061/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2060/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2060/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2060/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2060/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2059/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2059/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2059/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2059/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2058/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2058/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2058/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2058/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2057/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2057/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2057/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2057/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2056/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2056/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2056/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2056/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2055/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2055/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2055/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2055/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2054/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2054/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2054/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2054/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2053/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2053/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2053/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2053/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2052/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2052/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2052/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2052/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2051/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2051/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2051/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2051/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2050/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2050/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2050/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2050/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2049/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2049/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2049/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2049/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2048/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2048/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2048/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2048/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2047/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2047/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2047/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2047/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2046/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2046/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2046/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2046/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2045/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2045/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2045/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2045/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2044/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2044/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Found timing loop:
+     0: i_2044/O (LUT2)
+      [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+     1: i_2044/O (LUT2)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1466/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1541/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1467/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1542/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1468/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1543/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1469/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1544/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1470/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1545/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1471/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1546/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1472/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1547/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1473/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1548/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1474/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1549/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1475/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1550/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1476/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1551/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1477/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1552/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1478/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1553/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1479/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1554/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1480/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1555/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1481/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1556/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1482/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1557/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1483/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1558/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1484/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1559/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1459/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1540/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1485/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1560/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1486/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1561/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1487/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1562/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1488/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1563/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1489/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1564/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1490/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1565/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1491/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1566/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1492/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1567/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1493/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1568/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1494/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1569/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1495/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1570/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1496/O'
+WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_1571/O'
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:26 ; elapsed = 00:00:25 . Memory (MB): peak = 8585.930 ; gain = 886.098 ; free physical = 6242 ; free virtual = 18184
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.742 ; gain = 920.910 ; free physical = 6220 ; free virtual = 18163
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.742 ; gain = 920.910 ; free physical = 6220 ; free virtual = 18163
+---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[31]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[31]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[31]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[31]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[30]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[30]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[30]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[30]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[29]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[29]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[29]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[29]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[28]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[28]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[28]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[28]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[27]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[27]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[27]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[27]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[26]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[26]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[26]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[26]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[25]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[25]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[25]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[25]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[24]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[24]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[24]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[24]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[23]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[23]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[23]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[23]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[22]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[22]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[22]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[22]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[21]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[21]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[21]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[21]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[20]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[20]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[20]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[20]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[19]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[19]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[19]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[19]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[18]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[18]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[18]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[18]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[17]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[17]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[17]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[17]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[16]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[16]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[16]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[16]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[15]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[15]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[15]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[15]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[14]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[14]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[14]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[14]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[13]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[13]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[13]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[13]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[12]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[12]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[12]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[12]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[11]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[11]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[11]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[11]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[10]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[10]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[10]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[10]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[9]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[9]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[9]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[9]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[8]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[8]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[8]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[8]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[7]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[7]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[7]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[7]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[6]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[6]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[6]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[6]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[5]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[5]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[5]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[5]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[4]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[4]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[4]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[4]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[3]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[3]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[3]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[3]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[2]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[2]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[2]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[2]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[1]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[1]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[1]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[1]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[0]_i_1_n_0 with 1st driver pin 'ex_mem_alu_result[0]_i_1/O' [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin ex_mem_alu_result[0]_i_1_n_0 with 2nd driver pin 'ex_mem_alu_result[0]_i_2/O' [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|       32|Failed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+Found timing loop:
+     0: \ex_mem_alu_result[31]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[31]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[31]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[31]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[30]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[30]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[30]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[30]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[29]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[29]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[29]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[29]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[28]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[28]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[28]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[28]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[27]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[27]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[27]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[27]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[26]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[26]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[26]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[26]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[25]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[25]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[25]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[25]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[24]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[24]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[24]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[24]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[23]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[23]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[23]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[23]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[22]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[22]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[22]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[22]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[21]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[21]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[21]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[21]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[20]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[20]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[20]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[20]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[19]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[19]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[19]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[19]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[18]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[18]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[18]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[18]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[17]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[17]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[17]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[17]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[16]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[16]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[16]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[16]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[15]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[15]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[15]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[15]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[14]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[14]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[14]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[14]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[13]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[13]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[13]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[13]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[12]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[12]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[12]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[12]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[11]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[11]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[11]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[11]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[10]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[10]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[10]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[10]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[9]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[9]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[9]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[9]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[8]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[8]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[8]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[8]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[7]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[7]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[7]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[7]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[6]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[6]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[6]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[6]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[5]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[5]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[5]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[5]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[4]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[4]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[4]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[4]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[3]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[3]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[3]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[3]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[2]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[2]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[2]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[2]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[1]_i_1 /O (LUT4)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[1]_i_1 /I2 (LUT4)
+     2: \ex_mem_alu_result[1]_i_1 /O (LUT4)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I2 -to O \ex_mem_alu_result[1]_i_1 "
+Found timing loop:
+     0: \ex_mem_alu_result[0]_i_1 /O (LUT5)
+      [/home/morten/dev/risc-v-cpu/src/if_stage.sv:69]
+     1: \ex_mem_alu_result[0]_i_1 /I0 (LUT5)
+     2: \ex_mem_alu_result[0]_i_1 /O (LUT5)
+CRITICAL WARNING: [Synth 8-295] found timing loop. [/home/morten/dev/risc-v-cpu/src/top.sv:3]
+Inferred a: "set_disable_timing -from I0 -to O \ex_mem_alu_result[0]_i_1 "
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.742 ; gain = 920.910 ; free physical = 6219 ; free virtual = 18161
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.742 ; gain = 920.910 ; free physical = 6219 ; free virtual = 18161
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.742 ; gain = 920.910 ; free physical = 6219 ; free virtual = 18161
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.742 ; gain = 920.910 ; free physical = 6219 ; free virtual = 18161
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |BUFG      |     2|
+|2     |CARRY4    |    46|
+|3     |LUT1      |     8|
+|4     |LUT2      |   136|
+|5     |LUT3      |    64|
+|6     |LUT4      |   172|
+|7     |LUT5      |   337|
+|8     |LUT6      |   946|
+|9     |MUXF7     |   293|
+|10    |MUXF8     |    64|
+|11    |RAM128X1S |    32|
+|12    |RAM64M    |    96|
+|13    |FDRE      |  1640|
+|14    |FDSE      |     5|
+|15    |IBUF      |     6|
+|16    |OBUF      |     4|
++------+----------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.742 ; gain = 920.910 ; free physical = 6219 ; free virtual = 18161
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 160 critical warnings and 67 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:28 ; elapsed = 00:00:26 . Memory (MB): peak = 8620.742 ; gain = 793.141 ; free physical = 6219 ; free virtual = 18161
+Synthesis Optimization Complete : Time (s): cpu = 00:00:29 ; elapsed = 00:00:27 . Memory (MB): peak = 8620.750 ; gain = 920.910 ; free physical = 6219 ; free virtual = 18162
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.01 . Memory (MB): peak = 8620.750 ; gain = 0.000 ; free physical = 6386 ; free virtual = 18328
+INFO: [Netlist 29-17] Analyzing 531 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/morten/dev/risc-v-cpu/constraints/ArtyA7.xdc]
+Finished Parsing XDC File [/home/morten/dev/risc-v-cpu/constraints/ArtyA7.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 8660.762 ; gain = 0.000 ; free physical = 6382 ; free virtual = 18324
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 128 instances were transformed.
+  RAM128X1S => RAM128X1S (MUXF7, RAMS64E(x2)): 32 instances
+  RAM64M => RAM64M (RAMD64E(x4)): 96 instances
+
+Synth Design complete | Checksum: c3913ff1
+INFO: [Common 17-83] Releasing license: Synthesis
+74 Infos, 91 Warnings, 160 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:39 ; elapsed = 00:00:32 . Memory (MB): peak = 8989.672 ; gain = 1456.004 ; free physical = 6061 ; free virtual = 18009
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2615.726; main = 2615.726; forked = 323.354
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 9419.078; main = 8989.676; forked = 924.152
+design_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/top.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/morten/dev/risc-v-cpu/src/if_stage.sv:]
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Feb 23 15:12:54 2025...

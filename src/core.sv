@@ -1,6 +1,5 @@
 `timescale 1ns/1ps
 
-/* verilator lint_off UNUSED */
 module core (
     input logic clk,
     input logic rstn,
@@ -14,7 +13,7 @@ module core (
     output logic [31:0] o_data_mem_write_data,
     output logic o_data_mem_read_en,
     output logic o_data_mem_write_en,
-    output logic [1:0] o_data_mem_data_mask,
+    output logic [3:0] o_data_mem_data_mask,
     input logic  [31:0] i_data_mem_read_data
 );
     // IF
@@ -42,7 +41,7 @@ module core (
     logic [1:0] id_alu_op, id_alu_src_b;
     logic [0:0] id_alu_src_a;
     logic id_mem_write, id_mem_read;
-    logic [1:0] id_mem_data_mask;
+    logic [3:0] id_mem_data_mask;
     logic id_mem_read_sign_extend;
     logic id_reg_write;
     logic [1:0] id_reg_write_src;
@@ -51,7 +50,7 @@ module core (
     // ID-EX
     logic id_ex_flush;
 
-    logic [31:0] id_ex_pc, id_ex_pc_p4, id_ex_branch_target;
+    logic [31:0] id_ex_pc_p4, id_ex_branch_target;
     logic [6:0] id_ex_funct7;
     logic [2:0] id_ex_funct3;
     logic [4:0] id_ex_rs1, id_ex_rs2, id_ex_rd;
@@ -61,52 +60,38 @@ module core (
     logic [0:0] id_ex_alu_src_a;
     logic [1:0] id_ex_alu_src_b;
     logic id_ex_mem_write, id_ex_mem_read;
-    logic [1:0] id_ex_mem_data_mask;
+    logic [3:0] id_ex_mem_data_mask;
     logic id_ex_mem_read_sign_extend;
     logic id_ex_reg_write;
     logic [1:0] id_ex_reg_write_src;
     logic [31:0] id_ex_imm;
 
-    // debug
-    logic [31:0] id_ex_instr;
-
     // EX
     logic [31:0] ex_alu_result;
-    logic ex_alu_zero;
-    logic ex_alu_ovf;
-    logic ex_alu_sign;
     logic ex_pc_next_src;
     logic [31:0] ex_mem_write_data;
 
     // EX-Load/Store
-    logic [31:0] ex_mem_pc;
     logic [31:0] ex_mem_pc_p4;
     logic [4:0]  ex_mem_rd;
     logic [31:0] ex_mem_alu_result;  // Doubles as the address for MEM write
     logic ex_mem_mem_write, ex_mem_mem_read;
-    logic [1:0] ex_mem_mem_data_mask;
+    logic [3:0] ex_mem_mem_data_mask;
     logic ex_mem_mem_read_sign_extend;
     logic [31:0] ex_mem_mem_write_data;
     logic ex_mem_reg_write;
     logic [1:0] ex_mem_reg_write_src;
 
-    // debug
-    logic [31:0] ex_mem_instr;
-
     // MEM
     logic [31:0] mem_read_data;
 
     // MEM-WB
-    logic [31:0] mem_wb_pc;
     logic [31:0] mem_wb_pc_p4;
     logic [4:0]  mem_wb_rd;
     logic [31:0] mem_wb_alu_result;
     logic [31:0] mem_wb_mem_read_data;
     logic mem_wb_reg_write;
     logic [1:0] mem_wb_reg_write_src;
-
-    // debug
-    logic [31:0] mem_wb_instr;
 
     // ========== INSTRUCTION FETCH STAGE ==========
     if_stage if_stage_inst (
@@ -203,7 +188,6 @@ module core (
         .id_ex_flush(id_ex_flush),
 
         // Input
-        .id_pc(if_id_pc),
         .id_pc_p4(if_id_pc_p4),
         .id_branch_target(id_branch_target),
 
@@ -235,11 +219,7 @@ module core (
 
         .id_imm(id_imm),
 
-        // debug
-        .id_instr(if_id_instr),
-
         // Output
-        .id_ex_pc(id_ex_pc),
         .id_ex_pc_p4(id_ex_pc_p4),
         .id_ex_branch_target(id_ex_branch_target),
 
@@ -269,10 +249,7 @@ module core (
         .id_ex_reg_write(id_ex_reg_write),
         .id_ex_reg_write_src(id_ex_reg_write_src),
 
-        .id_ex_imm(id_ex_imm),
-
-        // debug
-        .id_ex_instr(id_ex_instr)
+        .id_ex_imm(id_ex_imm)
     );
 
     // ========== EX STAGE ==========
@@ -303,10 +280,6 @@ module core (
         .wb_forward_value(wb_reg_write_data),
 
         .AluResult(ex_alu_result),
-        .AluZero(ex_alu_zero),
-        .AluOvf(ex_alu_ovf),
-        .AluSign(ex_alu_sign),
-
         .BranchDecision(ex_pc_next_src),
 
         .MemWriteData(ex_mem_write_data)
@@ -317,7 +290,6 @@ module core (
         .clk(clk),
         .rstn(rstn),
 
-        .ex_pc(id_ex_pc),
         .ex_pc_p4(id_ex_pc_p4),
         .ex_rd(id_ex_rd),
         .ex_alu_result(ex_alu_result),
@@ -329,10 +301,6 @@ module core (
         .ex_reg_write(id_ex_reg_write),
         .ex_reg_write_src(id_ex_reg_write_src),
 
-        // debug
-        .ex_instr(id_ex_instr),
-
-        .ex_mem_pc(ex_mem_pc),
         .ex_mem_pc_p4(ex_mem_pc_p4),
         .ex_mem_rd(ex_mem_rd),
         .ex_mem_alu_result(ex_mem_alu_result),
@@ -342,10 +310,7 @@ module core (
         .ex_mem_mem_read_sign_extend(ex_mem_mem_read_sign_extend),
         .ex_mem_mem_write_data(ex_mem_mem_write_data),
         .ex_mem_reg_write(ex_mem_reg_write),
-        .ex_mem_reg_write_src(ex_mem_reg_write_src),
-
-        // debug
-        .ex_mem_instr(ex_mem_instr)
+        .ex_mem_reg_write_src(ex_mem_reg_write_src)
     );
 
     // ========== LOAD STORE STAGE ==========
@@ -372,7 +337,6 @@ module core (
         .clk(clk),
         .rstn(rstn),
 
-        .mem_pc(ex_mem_pc),
         .mem_pc_p4(ex_mem_pc_p4),
         .mem_rd(ex_mem_rd),
         .mem_alu_result(ex_mem_alu_result),
@@ -380,19 +344,12 @@ module core (
         .mem_reg_write(ex_mem_reg_write),
         .mem_reg_write_src(ex_mem_reg_write_src),
 
-        // debug
-        .mem_instr(ex_mem_instr),
-
-        .mem_wb_pc(mem_wb_pc),
         .mem_wb_pc_p4(mem_wb_pc_p4),
         .mem_wb_rd(mem_wb_rd),
         .mem_wb_alu_result(mem_wb_alu_result),
         .mem_wb_mem_read_data(mem_wb_mem_read_data),
         .mem_wb_reg_write(mem_wb_reg_write),
-        .mem_wb_reg_write_src(mem_wb_reg_write_src),
-
-        // debug
-        .mem_wb_instr(mem_wb_instr)
+        .mem_wb_reg_write_src(mem_wb_reg_write_src)
     );
 
     // ========== WB STAGE ==========

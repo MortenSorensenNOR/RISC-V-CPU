@@ -34,7 +34,7 @@ module id_stage (
 
     output logic id_mem_write,
     output logic id_mem_read,
-    output logic [1:0] id_mem_data_mask, // 01: byte, 10: half word, 11: word
+    output logic [3:0] id_mem_data_mask, // 01: byte, 10: half word, 11: word
     output logic id_mem_read_sign_extend,
 
     output logic id_reg_write,

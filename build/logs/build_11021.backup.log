@@ -1,0 +1,36 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Sun Feb 23 14:43:02 2025
+# Process ID         : 11021
+# Current directory  : /home/morten/dev/risc-v-cpu/build
+# Command line       : vivado -mode batch -source build.tcl -log logs/build.log -journal logs/build.jou
+# Log file           : /home/morten/dev/risc-v-cpu/build/logs/build.log
+# Journal file       : /home/morten/dev/risc-v-cpu/build/logs/build.jou
+# Running On         : laptop
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 22.04.5 LTS
+# Processor Detail   : AMD Ryzen 7 7840HS w/ Radeon 780M Graphics
+# CPU Frequency      : 400.000 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15903 MB
+# Swap memory        : 8191 MB
+# Total Virtual      : 24095 MB
+# Available Virtual  : 20961 MB
+#-----------------------------------------------------------
+source build.tcl
+# set design_name "top"
+# set board_name "ArtyA7"
+# set fpga_part "xc7a100tcsg324-1"
+# set src_dir [file normalize "./src"]
+# set origin_dir [file normalize "./"]
+# file mkdir logs
+# read_verilog -sv "${src_dir}/if_stage.sv"
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+INFO: [Common 17-41] Interrupt caught. Command should exit soon.
+INFO: [Common 17-344] 'source' was cancelled
+INFO: [Common 17-206] Exiting Vivado at Sun Feb 23 14:43:05 2025...

@@ -120,6 +120,14 @@ int main(int argc, char* argv[]) {
         //     }
         // }
 
+        // if (dut->clk) {
+        //     if (dut->io_write_en) {
+        //         if (dut->io_write_addr == UART_BASE_ADDR) {
+        //             printf("%08x\n", dut->io_write_data);
+        //         }
+        //     }
+        // }
+
         m_trace->dump(sim_time);
         sim_time++;
     }

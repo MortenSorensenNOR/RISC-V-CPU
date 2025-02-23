@@ -7,10 +7,7 @@ module alu (
     input  logic [31:0] A,
     input  logic [31:0] B,
     output logic [31:0] alu_do,
-    output logic cmp_result,
-
-    output logic zero,
-    output logic ovf
+    output logic cmp_result
 );
 
     // ========== ARITHMETIC ==========
@@ -28,72 +25,37 @@ module alu (
     } alu_ctrl_type_t;
 
     // Operations
+    logic [31:0] alu_sum, alu_sub, alu_xor, alu_or, alu_and, alu_sll, alu_srl, alu_sra;
+
+    always_comb begin
+        alu_sum = $signed(A) + $signed(B);
+        alu_sub = $signed(A) - $signed(B);
+        alu_xor = A ^ B;
+        alu_or  = A | B;
+        alu_and = A & B;
+        alu_sll = A << B[4:0];
+        alu_srl = A >> B[4:0];
+        alu_sra = $signed(A) >>> B[4:0];
+    end
+
+
     always_comb begin
         alu_do = '0;
 
         case (alu_ctrl)
-            ADD: begin
-                alu_do = $signed(A) + $signed(B);
-            end
-
-            SUB: begin
-                alu_do = $signed(A) - $signed(B);
-            end
-
-            XOR: begin
-                alu_do = A ^ B;
-            end
-
-            OR: begin
-                alu_do = A | B;
-            end
-
-            AND: begin
-                alu_do = A & B;
-            end
-
-            // For shift operations only the lower 5 bits are used
-            SLL: begin
-                alu_do = A << B[4:0];
-            end
-
-            SRL: begin
-                alu_do = A >> B[4:0];
-            end
-
-            SRA: begin
-                alu_do = $signed(A) >>> B[4:0];
-            end
-
-            default: begin
-                alu_do = '0;
-            end
+            ADD: alu_do = alu_sum;
+            SUB: alu_do = alu_sub;
+            XOR: alu_do = alu_xor;
+            OR:  alu_do = alu_or;
+            AND: alu_do = alu_and;
+            SLL: alu_do = alu_sll;
+            SRL: alu_do = alu_srl;
+            SRA: alu_do = alu_sra;
+            default: alu_do = '0;
         endcase
     end
 
-
-    // Overflow detection
-    always_comb begin
-        case (alu_ctrl)
-            ADD: begin
-                // Addition
-                ovf = (~A[31] & ~B[31] &  alu_do[31]) |
-                      ( A[31] &  B[31] & ~alu_do[31]);
-            end
-
-            SUB: begin
-                // Subtraction
-                ovf = ( A[31] & ~B[31] & ~alu_do[31]) |
-                      (~A[31] &  B[31] &  alu_do[31]);
-            end
-
-            default: begin
-                ovf = 0;
-            end
-        endcase
-    end
-
-    assign zero = (alu_do == 0);
+    // Overflow detection: See earlier commit, i.e. 95937484d0095e6b388ba9d16e48756ff24799a1
 
     // ========== COMPARISON ==========
     typedef enum logic [2:0] {

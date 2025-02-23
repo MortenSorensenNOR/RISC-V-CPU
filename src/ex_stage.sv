@@ -27,10 +27,6 @@ module ex_stage (
     input logic [31:0] wb_forward_value,
 
     output logic [31:0] AluResult,
-    output logic AluZero,
-    output logic AluOvf,
-    output logic AluSign,
-
     output logic BranchDecision,
 
     output logic [31:0] MemWriteData
@@ -123,7 +119,6 @@ module ex_stage (
 
     // ========== ALU ==========
     logic [31:0] w_alu_do;
-    logic w_alu_zero, w_alu_ovf;
     logic w_alu_cmp_result;
 
     alu alu_inst (
@@ -133,10 +128,7 @@ module ex_stage (
         .A(A),
         .B(B),
         .alu_do(w_alu_do),
-        .cmp_result(w_alu_cmp_result),
-
-        .zero(w_alu_zero),
-        .ovf(w_alu_ovf)
+        .cmp_result(w_alu_cmp_result)
     );
 
     // ========== Branch logic ==========
@@ -167,12 +159,8 @@ module ex_stage (
             end
         endcase
     end
+
     assign AluResult = w_alu_do;
-
-    assign AluZero = w_alu_zero;
-    assign AluOvf = w_alu_ovf;
-    assign AluSign = w_alu_do[31];
-
     assign MemWriteData = rd2_forwarded;
 
 endmodule

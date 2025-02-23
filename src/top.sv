@@ -4,6 +4,11 @@ module top (
     input logic clk,
     input logic rstn,
 
+    // // Easy debugging
+    // output logic [31:0] io_write_addr,
+    // output logic [31:0] io_write_data,
+    // output logic io_write_en,
+
     // For loading programs into instruction memory from external device
     input logic  load_program,
     input logic  mem_loader_SCK,
@@ -15,6 +20,7 @@ module top (
     output logic spi_io_sck,
     output logic spi_io_mosi,
     output logic spi_io_csn
+
 );
 
     // Program loader
@@ -41,12 +47,12 @@ module top (
     );
 
     // Instruction Memory
-    localparam string PROGRAM_PATH = "test/program.bin";
+    localparam string PROGRAM_PATH = "../programs/program.hex"; // test/program.bin
     logic [31:0] instr_mem_addr;
     logic [31:0] instr_mem_instr;
 
     i_mem #(
-        .MEMORY_SIZE(8196),
+        .MEMORY_SIZE(512),
         .PROGRAM_PATH(PROGRAM_PATH)
     ) instruction_mememory_inst (
         .clk(clk),
@@ -62,13 +68,13 @@ module top (
     // Data Memory
     logic [31:0] data_mem_addr;
     logic [31:0] data_mem_write_data;
-    logic [1:0]  data_mem_data_mask;
+    logic [3:0]  data_mem_data_mask;
     logic data_mem_write_en;
     logic data_mem_read_en;
     logic [31:0] data_mem_read_data;
 
     d_mem #(
-        .MEMORY_SIZE(8196)
+        .MEMORY_SIZE(512)
     ) data_memory_instr (
         .clk(clk),
         .addr(data_mem_addr),
@@ -136,5 +142,10 @@ module top (
             core_data_mem_read_data = data_mem_read_data;
         end
     end
+
+    // // DEBUG
+    // assign io_write_addr = data_mem_addr;
+    // assign io_write_data = data_mem_write_data;
+    // assign io_write_en   = data_mem_write_en;
 
 endmodule

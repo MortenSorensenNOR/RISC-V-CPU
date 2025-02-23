@@ -25,19 +25,29 @@ module register_file (
         foreach (regs[i]) regs[i] = '0;
     end
 
-    // Ensure x0 = 0
-    assign regs[0] = '0;
 
     // Write data on negative edge
-    always_ff @(negedge clk) begin
-        if (~rstn) begin
-            foreach (regs[i]) regs[i] <= '0;
-        end else begin
-            if (RegWrite && RD != '0) begin     // Cannot write to reg0, always "0"
-                regs[RD] <= WriteData;
+    /* verilator lint_off MULTIDRIVEN */
+    genvar i;
+    generate
+        for (i = 0; i < 31; i++) begin : gen_register_file
+            // Ensure x0 is 0
+            always_ff @(posedge clk) begin
+                if (~rstn) begin
+                    regs[i] <= '0;
+                end else begin
+                    if (i == 0) begin : gen_reg_0_zero
+                        regs[0] <= '0;
+                    end else begin    : gen_reg_write
+                        if (RegWrite && RD == i && i != 0) begin     // Cannot write to reg0, always "0"
+                            regs[i] <= WriteData;
+                    end
+                end
             end
         end
     end
+    endgenerate
+    /* verilator lint_on MULTIDRIVEN */
 
     // Continually drive output data signals
     always_comb begin

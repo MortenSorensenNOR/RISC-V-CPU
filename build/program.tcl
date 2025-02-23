@@ -1,4 +1,4 @@
-set design_name "design_name"
+set design_name "top"
 
 open_hw_manager
 connect_hw_server
